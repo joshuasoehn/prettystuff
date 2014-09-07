@@ -1,0 +1,7 @@
+{
+  "name": "PrettyStuff",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp-livereload": "^2.1.1"
+  }
+}

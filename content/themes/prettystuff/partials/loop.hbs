@@ -1,0 +1,20 @@
+{{! This is the post loop - each post will be output using this markup }}
+<div class="grid">
+    {{#foreach posts}}
+    <article class="{{post_class}}">
+        <div class="inner">
+            <a href="{{url}}">
+                <div class="thumbnail">
+                    {{content words="0"}}
+                </div>
+            </a>
+            <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+            <p class="excerpt">
+            {{excerpt characters="55"}}...
+            </p>
+        </div>
+    </article>
+    {{/foreach}}
+</div>
+{{! Previous/next page links - displayed on every page }}
+{{pagination}}
