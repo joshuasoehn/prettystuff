@@ -9,7 +9,7 @@ config = {
     // ### Development **(default)**
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
-        url: "localhost:3000",
+        url: "http://localhost:3000",
 
         // Example mail config
         // Visit http://support.ghost.org/mail for instructions

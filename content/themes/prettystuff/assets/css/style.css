@@ -252,20 +252,8 @@
     background-image: url(../images/pause.svg);
   }
 
-  .lightcase-fullScreenMode #lightcase-case a.lightcase-pause span,
-  .lightcase-fullScreenMode #lightcase-case a.lightcase-play span,
   .lightcase-fullScreenMode #lightcase-case a.lightcase-close {
-    border: 1px solid rbga(0, 0, 0, 0.25);
-    background-color: rgba(150, 150, 150, 0.75);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: 55% 55%;
-    -webkit-box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-  }
-
-  .lightcase-fullScreenMode #lightcase-case a.lightcase-close {
+    display: none;
     width: 30px;
     height: 30px;
     position: fixed;
@@ -529,10 +517,11 @@ ul {
   display: block;
 }
 .sidebar .menu a {
+  text-align: center;
+  width: auto;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
-  text-align: center;
   display: block;
   margin-bottom: 20px;
   letter-spacing: 2px;
