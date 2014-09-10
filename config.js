@@ -9,7 +9,7 @@ config = {
     // ### Development **(default)**
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
-        url: "http://localhost:3000",
+        url: "http://prettystuff.io",
 
         // Example mail config
         // Visit http://support.ghost.org/mail for instructions
@@ -29,7 +29,7 @@ config = {
         database: {
             client: 'sqlite3',
             connection: {
-                filename: path.join(__dirname, '/content/data/ghost-dev.db')
+                filename: path.join(__dirname, '/content/data/ghost.db')
             },
             debug: false
         },
@@ -59,7 +59,7 @@ config = {
         },
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '127.0.0.1',
+            host: '0.0.0.0',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         }
