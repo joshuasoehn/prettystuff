@@ -17,9 +17,9 @@
     {{! Facebook OpenGraph }}
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{url absolute="true"}}" />
-    <meta property="og:title" content="{{title}}" />
+    <meta property="og:title" content="{{@blog.title}}" />
     <meta property="og:site_name" content="{{@blog.title}}" />
-    <meta property="og:description" content="{{excerpt characters="220"}}..."/>
+    <meta property="og:description" content="Pretty Stuff is an online magazine posting hand-selected work from the field of art, design, illustration and photography."/>
     <meta property="article:published_time" content="{{date format="YYYY-MM-DD"}}" />
 
     {{! Styles'n'Scripts }}
@@ -54,6 +54,15 @@
     {{! The main JavaScript file }}
     <script type="text/javascript" src="{{asset "js/dist/scripts.min.js"}}"></script>
 
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-48113497-1', 'prettystuff.io');
+    ga('send', 'pageview');
+    </script>
 
 </body>
 </html>
