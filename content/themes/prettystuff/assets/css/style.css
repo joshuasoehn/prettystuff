@@ -561,8 +561,13 @@ ul {
 }
 
 .wrapper-inner {
-  padding: 80px 8% 0px;
+  padding: 80px 8% 0;
   overflow: hidden;
+}
+@media (max-width: 800px) {
+  .wrapper-inner {
+    padding: 60px 4% 0;
+  }
 }
 .wrapper-inner h1 {
   margin: 0;
