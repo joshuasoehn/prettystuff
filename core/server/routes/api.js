@@ -8,6 +8,10 @@ apiRoutes = function (middleware) {
     // alias delete with del
     router.del = router.delete;
 
+    // ## Configuration
+    router.get('/configuration', api.http(api.configuration.browse));
+    router.get('/configuration/:key', api.http(api.configuration.read));
+
     // ## Posts
     router.get('/posts', api.http(api.posts.browse));
     router.post('/posts', api.http(api.posts.add));
@@ -34,6 +38,10 @@ apiRoutes = function (middleware) {
 
     // ## Tags
     router.get('/tags', api.http(api.tags.browse));
+    router.get('/tags/:id', api.http(api.tags.read));
+    router.post('/tags', api.http(api.tags.add));
+    router.put('/tags/:id', api.http(api.tags.edit));
+    router.del('/tags/:id', api.http(api.tags.destroy));
 
     // ## Roles
     router.get('/roles/', api.http(api.roles.browse));
@@ -61,7 +69,6 @@ apiRoutes = function (middleware) {
         api.http(api.mail.sendTest)(req, res);
     });
 
-
     // ## Authentication
     router.post('/authentication/passwordreset',
         middleware.spamForgottenPrevention,
@@ -69,6 +76,7 @@ apiRoutes = function (middleware) {
     );
     router.put('/authentication/passwordreset', api.http(api.authentication.resetPassword));
     router.post('/authentication/invitation', api.http(api.authentication.acceptInvitation));
+    router.get('/authentication/invitation', api.http(api.authentication.isInvitation));
     router.post('/authentication/setup', api.http(api.authentication.setup));
     router.get('/authentication/setup', api.http(api.authentication.isSetup));
     router.post('/authentication/token',
@@ -77,6 +85,7 @@ apiRoutes = function (middleware) {
         middleware.authenticateClient,
         middleware.generateAccessToken
     );
+    router.post('/authentication/revoke', api.http(api.authentication.revoke));
 
     // ## Uploads
     router.post('/uploads', middleware.busboy, api.http(api.uploads.add));

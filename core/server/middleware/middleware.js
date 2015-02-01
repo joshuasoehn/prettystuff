@@ -12,7 +12,8 @@ var _           = require('lodash'),
     errors      = require('../errors'),
     utils       = require('../utils'),
 
-    expressServer,
+    middleware,
+    blogApp,
     oauthServer,
     loginSecurity = [],
     forgottenSecurity = [];
@@ -23,15 +24,15 @@ function isBlackListedFileType(file) {
     return _.contains(blackListedFileTypes, ext);
 }
 
-function cacheServer(server) {
-    expressServer = server;
+function cacheBlogApp(app) {
+    blogApp = app;
 }
 
 function cacheOauthServer(server) {
     oauthServer = server;
 }
 
-var middleware = {
+middleware = {
 
     // ### Authenticate Middleware
     // authentication has to be done for /ghost/* routes with
@@ -43,38 +44,35 @@ var middleware = {
 
         // SubPath is the url path starting after any default subdirectories
         // it is stripped of anything after the two levels `/ghost/.*?/` as the reset link has an argument
-        path = req.path.substring(config.paths.subdir.length);
+        path = req.path;
         /*jslint regexp:true, unparam:true*/
         subPath = path.replace(/^(\/.*?\/.*?\/)(.*)?/, function (match, a) {
             return a;
         });
 
-        if (res.isAdmin) {
-            if (subPath.indexOf('/ghost/api/') === 0
-                && path.indexOf('/ghost/api/v0.1/authentication/') !== 0) {
-
-                return passport.authenticate('bearer', { session: false, failWithError: true },
-                    function (err, user, info) {
-                        if (err) {
-                            return next(err); // will generate a 500 error
-                        }
-                        // Generate a JSON response reflecting authentication status
-                        if (! user) {
-                            var msg = {
-                                type: 'error',
-                                message: 'Please Sign In',
-                                status: 'passive'
-                            };
-                            res.status(401);
-                            return res.send(msg);
-                        }
-                        // TODO: figure out, why user & authInfo is lost
-                        req.authInfo = info;
-                        req.user = user;
-                        return next(null, user, info);
+        if (subPath.indexOf('/ghost/api/') === 0
+            && path.indexOf('/ghost/api/v0.1/authentication/') !== 0) {
+            return passport.authenticate('bearer', {session: false, failWithError: true},
+                function (err, user, info) {
+                    if (err) {
+                        return next(err); // will generate a 500 error
                     }
-                )(req, res, next);
-            }
+                    // Generate a JSON response reflecting authentication status
+                    if (!user) {
+                        var msg = {
+                            type: 'error',
+                            message: 'Please Sign In',
+                            status: 'passive'
+                        };
+                        res.status(401);
+                        return res.send(msg);
+                    }
+                    // TODO: figure out, why user & authInfo is lost
+                    req.authInfo = info;
+                    req.user = user;
+                    return next(null, user, info);
+                }
+            )(req, res, next);
         }
         next();
     },
@@ -84,8 +82,8 @@ var middleware = {
     cacheControl: function (options) {
         /*jslint unparam:true*/
         var profiles = {
-                'public': 'public, max-age=0',
-                'private': 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
+                public: 'public, max-age=0',
+                private: 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
             },
             output;
 
@@ -107,7 +105,7 @@ var middleware = {
     whenEnabled: function (setting, fn) {
         return function settingEnabled(req, res, next) {
             // Set from server/middleware/index.js for now
-            if (expressServer.enabled(setting)) {
+            if (blogApp.enabled(setting)) {
                 fn(req, res, next);
             } else {
                 next();
@@ -212,8 +210,6 @@ var middleware = {
             deniedEmailRateLimit = (forgottenSecurity[index].count > rateForgottenAttempts);
         }
 
-
-
         if (deniedEmailRateLimit) {
             errors.logError(
                 'Only ' + rateForgottenAttempts + ' forgotten password attempts per email every ' +
@@ -254,7 +250,7 @@ var middleware = {
     // ### Authenticate Client Middleware
     // authenticate client that is asking for an access token
     authenticateClient: function (req, res, next) {
-        return passport.authenticate(['oauth2-client-password'], { session: false })(req, res, next);
+        return passport.authenticate(['oauth2-client-password'], {session: false})(req, res, next);
     },
 
     // ### Generate access token Middleware
@@ -267,5 +263,5 @@ var middleware = {
 };
 
 module.exports = middleware;
-module.exports.cacheServer = cacheServer;
+module.exports.cacheBlogApp = cacheBlogApp;
 module.exports.cacheOauthServer = cacheOauthServer;

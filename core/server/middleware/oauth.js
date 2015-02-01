@@ -1,14 +1,13 @@
 var oauth2orize = require('oauth2orize'),
     models      = require('../models'),
     utils       = require('../utils'),
+    errors      = require('../errors'),
 
     oauth;
-
 
 oauth = {
 
     init: function (oauthServer, resetSpamCounter) {
-
         // remove all expired accesstokens on startup
         models.Accesstoken.destroyAllExpired();
 
@@ -25,12 +24,11 @@ oauth = {
             .fetch()
             .then(function (client) {
                 if (!client) {
-                    return done(null, false);
+                    return done(new errors.NoPermissionError('Invalid client.'), false);
                 }
                 // Validate the user
                 return models.User.check({email: username, password: password}).then(function (user) {
-
-                    //Everything validated, return the access- and refreshtoken
+                    // Everything validated, return the access- and refreshtoken
                     var accessToken = utils.uid(256),
                         refreshToken = utils.uid(256),
                         accessExpires = Date.now() + utils.ONE_HOUR_MS,
@@ -41,8 +39,8 @@ oauth = {
                     }).then(function () {
                         resetSpamCounter(username);
                         return done(null, accessToken, refreshToken, {expires_in: utils.ONE_HOUR_S});
-                    }).catch(function () {
-                        return done(null, false);
+                    }).catch(function (error) {
+                        return done(error, false);
                     });
                 }).catch(function (error) {
                     return done(error);
@@ -52,14 +50,14 @@ oauth = {
 
         // Exchange the refresh token to obtain an access token.  The callback accepts the
         // `client`, which is exchanging a `refreshToken` previously issued by the server
-        // for verification. If these values are validated, the application issues an 
+        // for verification. If these values are validated, the application issues an
         // access token on behalf of the user who authorized the code.
         oauthServer.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done) {
             models.Refreshtoken.forge({token: refreshToken})
             .fetch()
             .then(function (model) {
                 if (!model) {
-                    return done(null, false);
+                    return done(new errors.NoPermissionError('Invalid refresh token.'), false);
                 } else {
                     var token = model.toJSON(),
                         accessToken = utils.uid(256),
@@ -76,11 +74,11 @@ oauth = {
                             return models.Refreshtoken.edit({expires: refreshExpires}, {id: token.id});
                         }).then(function () {
                             return done(null, accessToken, {expires_in: utils.ONE_HOUR_S});
-                        }).catch(function () {
-                            return done(null, false);
+                        }).catch(function (error) {
+                            return done(error, false);
                         });
                     } else {
-                        done(null, false);
+                        done(new errors.UnauthorizedError('Refresh token expired.'), false);
                     }
                 }
             });

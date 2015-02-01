@@ -9,7 +9,6 @@ var _       = require('lodash'),
     getIndexes,
     getColumns;
 
-
 doRawFlattenAndPluck = function doRaw(query, name) {
     return config.database.knex.raw(query).then(function (response) {
         return _.flatten(_.pluck(response.rows, name));
@@ -18,7 +17,7 @@ doRawFlattenAndPluck = function doRaw(query, name) {
 
 getTables = function getTables() {
     return doRawFlattenAndPluck(
-        'SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'', 'table_name'
+        'SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\' and table_name not like \'pg_%\'', 'table_name'
     );
 };
 

@@ -3,7 +3,7 @@ var Settings,
     uuid           = require('node-uuid'),
     _              = require('lodash'),
     errors         = require('../errors'),
-    when           = require('when'),
+    Promise        = require('bluebird'),
     validation     = require('../data/validation'),
     internal       = {context: {internal: true}},
 
@@ -20,11 +20,6 @@ function parseDefaultSettings() {
         _.each(settings, function (setting, settingName) {
             setting.type = categoryName;
             setting.key = settingName;
-
-            // Special case for dbHash
-            if (setting.key === 'dbHash' && setting.defaultValue === null) {
-                setting.defaultValue = uuid.v4();
-            }
 
             defaultSettingsFlattened[settingName] = setting;
         });
@@ -64,7 +59,7 @@ Settings = ghostBookshelf.Model.extend({
             var themeName = setting.value || '';
 
             if (setting.key !== 'activeTheme') {
-                return when.resolve();
+                return;
             }
 
             return validation.validateActiveTheme(themeName);
@@ -85,9 +80,9 @@ Settings = ghostBookshelf.Model.extend({
     findOne: function (options) {
         // Allow for just passing the key instead of attributes
         if (!_.isObject(options)) {
-            options = { key: options };
+            options = {key: options};
         }
-        return when(ghostBookshelf.Model.findOne.call(this, options));
+        return Promise.resolve(ghostBookshelf.Model.findOne.call(this, options));
     },
 
     edit: function (data, options) {
@@ -98,33 +93,31 @@ Settings = ghostBookshelf.Model.extend({
             data = [data];
         }
 
-        return when.map(data, function (item) {
+        return Promise.map(data, function (item) {
             // Accept an array of models as input
             if (item.toJSON) { item = item.toJSON(); }
             if (!(_.isString(item.key) && item.key.length > 0)) {
-                return when.reject(new errors.ValidationError('Value in [settings.key] cannot be blank.'));
+                return Promise.reject(new errors.ValidationError('Value in [settings.key] cannot be blank.'));
             }
 
             item = self.filterData(item);
 
-            return Settings.forge({ key: item.key }).fetch(options).then(function (setting) {
-
+            return Settings.forge({key: item.key}).fetch(options).then(function (setting) {
                 if (setting) {
                     return setting.save({value: item.value}, options);
                 }
 
-                return when.reject(new errors.NotFoundError('Unable to find setting to update: ' + item.key));
-
+                return Promise.reject(new errors.NotFoundError('Unable to find setting to update: ' + item.key));
             }, errors.logAndThrowError);
         });
     },
 
     populateDefault: function (key) {
         if (!getDefaultSettings()[key]) {
-            return when.reject(new errors.NotFoundError('Unable to find default setting: ' + key));
+            return Promise.reject(new errors.NotFoundError('Unable to find default setting: ' + key));
         }
 
-        return this.findOne({ key: key }).then(function (foundSetting) {
+        return this.findOne({key: key}).then(function (foundSetting) {
             if (foundSetting) {
                 return foundSetting;
             }
@@ -153,7 +146,7 @@ Settings = ghostBookshelf.Model.extend({
                 }
             });
 
-            return when.all(insertOperations);
+            return Promise.all(insertOperations);
         });
     }
 

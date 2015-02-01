@@ -1,7 +1,7 @@
 // # Permissions Fixtures
 // Sets up the permissions, and the default permissions_roles relationships
-var when        = require('when'),
-    sequence    = require('when/sequence'),
+var Promise     = require('bluebird'),
+    sequence    = require('../../../utils/sequence'),
     _           = require('lodash'),
     errors      = require('../../../errors'),
     models      = require('../../../models'),
@@ -52,16 +52,15 @@ addAllRolesPermissions = function () {
         ops.push(addRolesPermissionsForRole(roleName));
     });
 
-    return when.all(ops);
+    return Promise.all(ops);
 };
-
 
 addAllPermissions = function (options) {
     var ops = [];
-    _.each(fixtures.permissions, function (permissions, object_type) {
+    _.each(fixtures.permissions, function (permissions, objectType) {
         _.each(permissions, function (permission) {
             ops.push(function () {
-                permission.object_type = object_type;
+                permission.object_type = objectType;
                 return models.Permission.add(permission, options);
             });
         });
@@ -100,7 +99,7 @@ to003 = function (options) {
     });
 
     // Now we can perfom the normal populate
-    return when.all(ops).then(function () {
+    return Promise.all(ops).then(function () {
         return populate(options);
     });
 };

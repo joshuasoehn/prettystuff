@@ -2,6 +2,7 @@
 
 This is a plain English summary of all of the components within Ghost which may affect your privacy in some way. Please keep in mind that if you use third party Themes or Apps with Ghost, there may be additional things not listed here.
 
+Each of the items listed in this document can be disabled via Ghost's `config.js` file. Check out the [configuration guide](http://support.ghost.org/config/) for details.
 
 ## Official Services
 
@@ -17,12 +18,12 @@ This service can be disabled at any time. All of the information and code relate
 
 ## Third Party Services
 
-Ghost uses a number of third party services for specific functionality within Ghost. 
+Ghost uses a number of third party services for specific functionality within Ghost.
 
 
 ### Google Fonts
 
-Ghost makes use of the Open Sans and Inconsolata [Google Fonts](https://www.google.com/fonts). These are loaded into the Ghost admin area to provide a typographically stimulating experience.
+Ghost makes use of the Open Sans [Google Font](https://www.google.com/fonts), which is loaded into the Ghost admin area to provide a typographically stimulating experience.
 
 ### Gravatar
 
@@ -40,3 +41,11 @@ RPC pings only happen when Ghost is running in the `production` environment.
 ### Sharing Buttons
 
 The default theme which comes with Ghost contains three sharing buttons to [Twitter](http://twitter.com), [Facebook](http://facebook.com), and [Google Plus](http://plus.google.com). No resources are loaded from any services, however the buttons do allow visitors to your blog to share your content publicly on these respective networks.
+
+### Structured Data
+
+Ghost outputs basic meta tags to allow rich snippets of your content to be recognised by popular social networks. Currently there are 3 supported rich data protocols which are output in `{{ghost_head}}`:
+
+- Schema.org - http://schema.org/docs/documents.html
+- Open Graph - http://ogp.me/
+- Twitter cards - https://dev.twitter.com/cards/overview

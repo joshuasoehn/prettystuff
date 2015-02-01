@@ -280,7 +280,7 @@ module.exports = function(bookshelf) {
       it('has a fetching event, which will fail if an error is thrown or if a rejected promise is provided', function() {
         var model = new Site({id: 1});
         model.on('fetching', function() {
-          throw new Error("This failed");
+          throw new Error('This failed');
         });
         return expect(model.fetch()).to.be.rejected;
       });
@@ -592,6 +592,18 @@ module.exports = function(bookshelf) {
         return m.save({item: 'test'}, {method: 'update'});
       });
 
+      it('sets created_at when {method: "insert"} is passed', function() {
+        var m = new bookshelf.Model(null, {hasTimestamps: true});
+        m.sync = function() {
+          equal(this.id, 1);
+          equal(this.get('item'), 'test');
+          equal(_.isDate(this.get('created_at')), true);
+          equal(_.isDate(this.get('updated_at')), true);
+          return stubSync;
+        };
+        return m.save({id: 1, item: 'test'}, {method: 'insert'});
+      });
+
       it('will accept a falsy value as an option for created and ignore it', function() {
         var m = new bookshelf.Model(null, {hasTimestamps: ['createdAt', null]});
         m.sync = function() {
@@ -731,6 +743,31 @@ module.exports = function(bookshelf) {
 
         expect(newModelCollection).to.be.an.instanceOf(bookshelf.Collection);
         expect(newModelCollection.at(0)).to.be.an.instanceOf(NewModel);
+      });
+
+    });
+
+    describe('model.once', function() {
+
+      var Post = Models.Post;
+
+      it('event.once return a promise', function() {
+
+          var p = new Post({id: 1});
+          p.once('event', function() {
+              return Promise.resolve(1);
+          });
+
+          var promise = p.triggerThen('event');
+
+          equal(promise instanceof Promise, true);
+
+          promise.then(function(result) {
+              equal(result, 1);
+          });
+
+          return promise;
+
       });
 
     });

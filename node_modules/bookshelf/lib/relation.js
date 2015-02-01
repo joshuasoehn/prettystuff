@@ -27,14 +27,18 @@ _.extend(BookshelfRelation.prototype, {
     this.parentIdAttribute = _.result(parent, 'idAttribute');
 
     if (this.isInverse()) {
+      // use formatted attributes so that morphKey and foreignKey will match
+      // attribute keys
+      var attributes = parent.format(_.clone(parent.attributes));
+
       // If the parent object is eager loading, and it's a polymorphic `morphTo` relation,
       // we can't know what the target will be until the models are sorted and matched.
       if (this.type === 'morphTo' && !parent._isEager) {
-        this.target = Helpers.morphCandidate(this.candidates, parent.get(this.key('morphKey')));
+        this.target = Helpers.morphCandidate(this.candidates, attributes[this.key('morphKey')]);
         this.targetTableName   = _.result(this.target.prototype, 'tableName');
         this.targetIdAttribute = _.result(this.target.prototype, 'idAttribute');
       }
-      this.parentFk = parent.get(this.key('foreignKey'));
+      this.parentFk = attributes[this.key('foreignKey')];
     } else {
       this.parentFk = parent.id;
     }
@@ -80,6 +84,7 @@ _.extend(BookshelfRelation.prototype, {
   // Generates and returns a specified key, for convenience... one of
   // `foreignKey`, `otherKey`, `throughForeignKey`.
   key: function(keyName) {
+    var idKeyName;
     if (this[keyName]) return this[keyName];
     if (keyName === 'otherKey') {
       return this[keyName] = singularMemo(this.targetTableName) + '_' + this.targetIdAttribute;
@@ -88,18 +93,33 @@ _.extend(BookshelfRelation.prototype, {
       return this[keyName] = singularMemo(this.joinTable()) + '_' + this.throughIdAttribute;
     }
     if (keyName === 'foreignKey') {
-      if (this.type === 'morphTo') return this[keyName] = this.morphName + '_id';
+      if (this.type === 'morphTo') {
+        idKeyName = this.columnNames && this.columnNames[1] ? this.columnNames[1] : this.morphName + '_id';
+        return this[keyName] = idKeyName;
+      }
       if (this.type === 'belongsTo') return this[keyName] = singularMemo(this.targetTableName) + '_' + this.targetIdAttribute;
-      if (this.isMorph()) return this[keyName] = this.morphName + '_id';
+      if (this.isMorph()) {
+        idKeyName = this.columnNames && this.columnNames[1] ? this.columnNames[1] : this.morphName + '_id';
+        return this[keyName] = idKeyName;
+      }
       return this[keyName] = singularMemo(this.parentTableName) + '_' + this.parentIdAttribute;
     }
-    if (keyName === 'morphKey') return this[keyName] = this.morphName + '_type';
+    if (keyName === 'morphKey') {
+      var typeKeyName = this.columnNames && this.columnNames[0] ? this.columnNames[0] : this.morphName + '_type';
+      return this[keyName] = typeKeyName;
+    }
     if (keyName === 'morphValue') return this[keyName] = this.parentTableName || this.targetTableName;
   },
 
   // Injects the necessary `select` constraints into a `knex` query builder.
   selectConstraints: function(knex, options) {
     var resp = options.parentResponse;
+
+    // The `belongsToMany` and `through` relations have joins & pivot columns.
+    if (this.isJoined()) this.joinClauses(knex);
+
+    // Call the function, if one exists, to constrain the eager loaded query.
+    if (options._beforeFn) options._beforeFn.call(knex, knex);
 
     // The base select column
     if (_.isArray(options.columns)) {
@@ -112,12 +132,8 @@ _.extend(BookshelfRelation.prototype, {
       knex.column(this.targetTableName + '.*');
     }
 
-    // The `belongsToMany` and `through` relations have joins & pivot columns.
-    if (this.isJoined()) {
-      this.joinClauses(knex);
-      this.joinColumns(knex);
-    }
-
+    if (this.isJoined()) this.joinColumns(knex);
+    
     // If this is a single relation and we're not eager loading,
     // limit the query to a single item.
     if (this.isSingle() && !resp) knex.limit(1);
@@ -356,7 +372,13 @@ var pivotHelpers = {
   // table to the current. Creates & saves a new model
   // and attaches the model with a join table entry.
   attach: function(ids, options) {
-    return this._handler('insert', ids, options);
+    return Promise.bind(this).then(function(){
+      return this.triggerThen('attaching', this, ids, options);
+    }).then(function() {
+      return this._handler('insert', ids, options);
+    }).then(function(resp) {
+      return this.triggerThen('attached', this, resp, options);
+    });
   },
 
   // Detach related object from their pivot tables.
@@ -366,7 +388,13 @@ var pivotHelpers = {
   // these parameters. If no parameters are specified, we assume we will
   // detach all related associations.
   detach: function(ids, options) {
-    return this._handler('delete', ids, options);
+    return Promise.bind(this).then(function(){
+      return this.triggerThen('detaching', this, ids, options);
+    }).then(function() {
+      return this._handler('delete', ids, options);
+    }).then(function(resp) {
+      return this.triggerThen('detached', this, resp, options);
+    });
   },
 
   // Update an existing relation's pivot table entry.
