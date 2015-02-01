@@ -304,6 +304,8 @@ ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    opacity: 0;
+    animation: fade-in .5s .1s ease forwards;
     @media (max-width: 800px) {
        padding: 40px 4%;
     }  
@@ -316,18 +318,7 @@ ul {
 
 .grid article {
     width: 30%;
-    margin-bottom: 6%;
-    opacity: 0;
-    animation: fade-in-scale 1s cubic-bezier(0.2,0.3,0.25,0.9) forwards;
-
-    &:nth-child(2){ animation-delay: .2s;}
-    &:nth-child(3){ animation-delay: .4s; }
-    &:nth-child(4){ animation-delay: .6s; }
-    &:nth-child(5){ animation-delay: .8s; }
-    &:nth-child(6){ animation-delay: 1s; }
-    &:nth-child(7){ animation-delay: 1.2s; }
-    &:nth-child(8){ animation-delay: 1.4s; }
-    &:nth-child(9){ animation-delay: 1.6s; }
+    margin-bottom: 6%; 
 
     @media (max-width: 650px) {
         width: 100%;

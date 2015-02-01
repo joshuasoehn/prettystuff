@@ -15,6 +15,13 @@ and then `uglify()` would result in a source map for the already concatenated
 file which has the possibility of being quite large, making it hard to find the
 code you are wanting to debug.
 
+NOTE: This plugin has been blacklisted as it relies on Uglify to concat the files
+instead of using `gulp.concat` which breaks the "It should do one thing" paradigm.
+When I created this plugin, there was no way to get source maps to work with gulp,
+however now there is a "gulp-sourcemaps" plugin that achieves the same goal.
+gulp-uglifyjs still works great and gives very granular control over the Uglify
+execution, I'm just giving you a heads up that other options exist now.
+
 ## Usage
 
 ```javascript
@@ -52,6 +59,16 @@ it to a file with the same name as the first file found.
     Note: if you would like your source map to point to relative paths instead
     of absolute paths (which you probably will if it is hosted on a server), set
     the `basePath` option to be the base of where the content is served.
+
+  - `inSourceMap`
+
+    If you're compressing compiled JavaScript and have a source map for it, you
+    can use the inSourceMap argument. This can only be used in conjunction with
+    `outSourceMap`.
+
+  - `sourceRoot`
+
+    Sets the root location for where the source files should be found
 
   - `mangle`
 

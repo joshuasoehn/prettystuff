@@ -2,7 +2,8 @@ var gutil = require('gulp-util'),
     _ = require('lodash'),
     path = require('path'),
     through = require('through'),
-    UglifyJS = require('uglify-js');
+    UglifyJS = require('uglify-js'),
+    fs = require('fs');
 
 var File = gutil.File,
     PluginError = gutil.PluginError;
@@ -107,8 +108,16 @@ module.exports = function(filename, options) {
       toplevel.mangle_names();
     }
 
+    // Setup source map if one was requested
     if (options.outSourceMap) {
-      options.output.source_map = options.output.source_map || { file: options.outSourceMap };
+      options.output.source_map = options.output.source_map || {
+        file: filename,
+        root: options.sourceRoot || baseFile.cwd,
+      };
+
+      if (options.inSourceMap) {
+        options.output.source_map.orig = fs.readFileSync(options.inSourceMap).toString();
+      }
 
       var map = UglifyJS.SourceMap(options.output.source_map);
       options.output.source_map = map;
