@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @media screen {
   /* Overlay */
   #lightcase-overlay {
@@ -277,6 +278,7 @@ body {
 
 html {
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -301,8 +303,7 @@ p a {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "brandon-grotesque", sans-serif;
-  text-transform: uppercase;
+  font-family: "freight-sans-pro", sans-serif;
   display: block;
   color: #111;
 }
@@ -321,16 +322,17 @@ h1:after {
   width: 30px;
   background: #000;
   vertical-align: middle;
-  margin-top: -8px;
+  margin-top: -4px;
   margin-left: 20px;
 }
 
 h2 {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
 blockquote {
@@ -381,7 +383,7 @@ ul {
   padding: 12px 20px;
   color: #fff;
   display: inline-block;
-  font-family: "brandon-grotesque", sans-serif;
+  font-family: "freight-sans-pro", sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
@@ -391,8 +393,18 @@ ul {
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
 }
+.button::after {
+  content: '→';
+  position: relative;
+  padding-left: 15px;
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+}
 .button:hover {
   background: #333;
+}
+.button:hover::after {
+  padding-left: 20px;
 }
 @media (max-width: 600px) {
   .button {
@@ -420,66 +432,64 @@ ul {
 }
 
 .content {
-  max-width: 720px;
-  margin: 60px auto 20px;
+  max-width: 780px;
+  margin: 40px auto 20px;
   padding: 4%;
   overflow: hidden;
 }
-@media (max-width: 650px) {
+@media (max-width: 800px) {
   .content {
-    margin-top: 40px;
+    margin-top: 100px;
+    padding: 6%;
   }
 }
 
-.mobile-menu {
-  display: block;
-  margin: 6% 4% 0;
-  overflow: hidden;
+.single-post {
+  margin-top: 20px;
 }
-@media (min-width: 800px) {
-  .mobile-menu {
-    display: none;
-  }
-}
-.mobile-menu .menu-toggle {
+
+.menu-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   background: #fff;
-  width: 48px;
-  height: 48px;
-  padding: 0 13px;
+  width: 40px;
+  height: 40px;
+  padding: 0 11px;
   outline: none;
   cursor: pointer;
   margin: 0;
   z-index: 11111;
 }
-@media all and (min-width: 800px) {
-  .mobile-menu .menu-toggle {
-    position: absolute;
+@media (min-width: 800px) {
+  .menu-toggle {
+    display: none;
   }
 }
-.mobile-menu .menu-toggle span,
-.mobile-menu .menu-toggle span:before,
-.mobile-menu .menu-toggle span:after {
+.menu-toggle span,
+.menu-toggle span:before,
+.menu-toggle span:after {
   position: relative;
   display: block;
   background: #111;
   width: 100%;
   height: 2px;
 }
-.mobile-menu .menu-toggle span:before,
-.mobile-menu .menu-toggle span:after {
+.menu-toggle span:before,
+.menu-toggle span:after {
   position: absolute;
   left: 0;
   content: "";
 }
-.mobile-menu .menu-toggle span:before {
+.menu-toggle span:before {
   margin-top: -6px;
 }
-.mobile-menu .menu-toggle span:after {
+.menu-toggle span:after {
   margin-top: 6px;
 }
 
 .sidebar {
-  font-family: "brandon-grotesque", sans-serif;
+  font-family: "freight-sans-pro", sans-serif;
   position: fixed;
   width: 15%;
   float: left;
@@ -509,7 +519,7 @@ ul {
 .sidebar .logo {
   text-align: center;
   font-size: 32px;
-  font-size: 600;
+  font-size: 200;
   margin-bottom: 30px;
   display: block;
 }
@@ -547,7 +557,6 @@ ul {
   .site {
     width: 100%;
     float: none;
-    padding: 0 2%;
   }
 }
 
@@ -585,12 +594,13 @@ ul {
       -ms-flex-pack: justify;
           justify-content: space-between;
   opacity: 0;
-  -webkit-animation: fade-in .5s .1s ease forwards;
-          animation: fade-in .5s .1s ease forwards;
+  -webkit-animation: fade-in .8s .1s ease forwards;
+          animation: fade-in .8s .1s ease forwards;
 }
 @media (max-width: 800px) {
   .grid {
-    padding: 40px 4%;
+    padding: 6%;
+    margin-top: 100px;
   }
 }
 .grid:nth-of-type(2n) {
@@ -608,18 +618,21 @@ ul {
   }
 }
 .grid article h2 {
-  text-transform: uppercase;
-  font-size: 18px;
+  font-size: 22px;
   letter-spacing: 1px;
   font-weight: 600;
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   text-overflow: ellipsis;
+  text-transform: none;
   white-space: nowrap;
   overflow: hidden;
 }
 .grid article .excerpt {
   margin-top: 0px;
+  line-height: 1.5;
+  font-size: 18px;
+  color: #666;
 }
 
 .thumbnail {
@@ -642,15 +655,87 @@ ul {
 
 .single-post, .page {
   opacity: 0;
-  -webkit-animation: fade-in .5s .1s ease forwards;
-          animation: fade-in .5s .1s ease forwards;
+  -webkit-animation: fade-in .8s .1s ease forwards;
+          animation: fade-in .8s .1s ease forwards;
 }
 .single-post a img:hover, .page a img:hover {
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
 }
 
-.post-meta {
+.title-hero {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  text-align: center;
+  opacity: 0;
+  -webkit-animation: fade-in .8s .2s ease forwards;
+          animation: fade-in .8s .2s ease forwards;
+}
+.title-hero .darker {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+.title-hero .hero-inner {
+  width: 100%;
+  position: absolute;
+  top: 51%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.title-hero .post-title {
+  color: #fff;
+  font-size: 120px;
+  padding: 0 100px;
+  letter-spacing: 20px;
+  margin-right: -10px;
+  line-height: 1.2;
+  margin-bottom: 55px;
+}
+@media (max-width: 800px) {
+  .title-hero .post-title {
+    font-size: 60px;
+    padding: 0 4%;
+    letter-spacing: 20px;
+    margin-right: -20px;
+    line-height: 1.5;
+  }
+}
+@media (max-width: 650px) {
+  .title-hero .post-title {
+    word-break: break-word;
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+  }
+}
+.title-hero .post-title::after {
+  display: none;
+  background: #fff;
+  height: 6px;
+  margin-top: -15px;
+  width: 40px;
+}
+.title-hero .tags {
+  border-top: 1px solid #fff;
+  padding-top: 35px;
+  color: #fff;
+}
+.title-hero .tags a {
+  color: #fff;
+  margin: 5px;
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+}
+.title-hero .tags a:hover {
+  text-decoration: underline;
+}
+
+.post-aktiv {
   display: inline-block;
   color: #888;
   font-size: 16px;
@@ -658,7 +743,7 @@ ul {
   border-left: 2px solid #888;
   padding-left: 10px;
 }
-.post-meta a {
+.post-aktiv a {
   color: #888;
   text-decoration: underline;
 }
@@ -690,11 +775,10 @@ ul {
   clear: both;
 }
 .author .desc span {
-  font-family: "brandon-grotesque", sans-serif;
+  font-family: "freight-sans-pro", sans-serif;
   display: block;
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 600;
-  text-transform: uppercase;
   letter-spacing: 2px;
 }
 .author .desc a {
@@ -710,7 +794,7 @@ ul {
   background: #111;
   color: #fff;
   margin-top: 20px;
-  font-family: "brandon-grotesque", sans-serif;
+  font-family: "freight-sans-pro", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
@@ -753,7 +837,7 @@ ul {
 }
 
 .pagination {
-  font-family: "brandon-grotesque", sans-serif;
+  font-family: "freight-sans-pro", sans-serif;
   font-size: 14px;
   color: #999;
   text-transform: uppercase;

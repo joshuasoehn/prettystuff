@@ -1,30 +1,39 @@
 {{!< default}}
 
-<main class="content single-post" role="main">
+{{#post}}
+
+  <div class="title-hero" style="background-image: url({{image}})">
+    <div class="darker">
+      <div class="hero-inner">
+        <h1 class="post-title">{{title}}</h1>
+        <span class="tags">{{tags prefix=""}}</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="content single-post" role="main">
 
     <article class="{{post_class}}">
     {{! Everything inside the #post tags pulls data from the post }}
-    {{#post}}
 
-        <h1 class="post-title">{{title}}</h1>
 
-        <section class="post-content">
-            {{content}}
-        </section>
+    <section class="post-content">
+      {{content}}
+    </section>
 
-        <section class="post-meta">
-            Posted on
-            <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
-            {{tags prefix=" in "}}
-            by
-            {{#author}}
-            <span class="author">
-                <a href="{{url}}">{{name}}</a>
-            </span>
-            {{/author}}
-        </section>
+    <section class="post-meta">
+      Posted on
+      <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+      {{tags prefix=" in "}}
+      by
+      {{#author}}
+      <span class="author">
+          <a href="{{url}}">{{name}}</a>
+      </span>
+      {{/author}}
+    </section>
 
-    {{/post}}
     </article>
 
-</main>
+  </main>
+{{/post}}
