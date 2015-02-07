@@ -1,7 +1,7 @@
 @import 'lightcase';
 
-$aktiv: "aktiv-grotesk-std", sans-serf;
-$freight: "freight-sans-pro",sans-serif;
+
+$proxima: "proxima-nova",sans-serif;
 $skolar: "skolar", serif;
 
 @mixin vertical-align {
@@ -53,14 +53,13 @@ p {
 }
 
 h1, h2, h3, h4, h5 {
-	font-family: $freight;
+	font-family: $proxima;
 	display: block;
 	color: #111;
 }
 
 h1 {
 	font-size: 32px;
-	letter-spacing: 2px;
 	font-weight: 600;
 	margin-bottom: 40px;
 	right: 20px;
@@ -80,7 +79,7 @@ h1 {
 h2 {
 	margin-top: 20px;
 	margin-bottom: 10px;
-	font-weight: 400;
+	font-weight: 600;
 	font-size: 18px;
 	letter-spacing: 4px;
   text-transform: uppercase;
@@ -129,7 +128,7 @@ ul {
 	padding: 12px 20px;
 	color: #fff;
 	display: inline-block;
-	font-family: $freight;
+	font-family: $proxima;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-size: 14px;
@@ -229,7 +228,7 @@ ul {
 
 
 .sidebar {
-	font-family: $freight;
+	font-family: $proxima;
 	position: fixed;
 	width: 15%;
 	float: left;
@@ -252,7 +251,7 @@ ul {
 	.logo {
 		text-align: center;
 		font-size: 32px;
-		font-size: 200;
+		font-size: 400;
 		margin-bottom: 30px;
 		display: block;
 	}
@@ -339,9 +338,9 @@ ul {
 	h2 {
 		font-size: 22px;
 		letter-spacing: 1px;
-		font-weight: 600;
+		font-weight: 700;
 		margin-top: 15px;
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 		text-overflow: ellipsis;
     text-transform: none;
 		white-space: nowrap;
@@ -353,6 +352,9 @@ ul {
     line-height: 1.5;
     font-size: 18px;
     color: #666;
+    @media (max-width: 1000px) {
+			font-size: 14px;
+		}
 	}
 
 }
@@ -411,18 +413,18 @@ ul {
     color: #fff;
     font-size: 120px;
     padding: 0 100px;
-    letter-spacing: 20px;
-    margin-right: -10px;
+    letter-spacing: 10px;
     line-height: 1.2;
     margin-bottom: 55px;
+    font-weight: 700;
     @media (max-width: 800px) {
-      font-size: 60px;
+      font-size: 100px;
       padding: 0 4%;
-      letter-spacing: 20px;
-      margin-right: -20px;
+      letter-spacing: 5px;
       line-height: 1.5;
     }
     @media (max-width: 650px) {
+    	font-size: 60px;
       word-break: break-word;
       hyphens: auto;
     }
@@ -484,7 +486,7 @@ ul {
 
 	.desc {
 		width: 100%;
-		margin-top: -5px;
+		margin-top: 10px;
 		&:after {
 			content:'';
 			display:block;
@@ -492,11 +494,10 @@ ul {
 		}
 
 	span {
-		font-family: $freight;
+		font-family: $proxima;
 		display: block;
 		font-size: 32px;
-		font-weight: 600;
-		letter-spacing: 2px;
+		font-weight: 700;
 	}
 
 	a {
@@ -515,7 +516,7 @@ ul {
 	background: #111;
 	color: #fff;
 	margin-top: 20px;
-	font-family: $freight;
+	font-family: $proxima;
 	text-transform: uppercase;
 	font-weight: 600;
 	letter-spacing: 2px;
@@ -567,7 +568,7 @@ ul {
 }
 
 .pagination {
-	font-family: $freight;
+	font-family: $proxima;
 	font-size: 14px;
 	color: #999;
 	text-transform: uppercase;

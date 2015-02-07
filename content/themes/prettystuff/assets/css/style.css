@@ -303,14 +303,13 @@ p a {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   display: block;
   color: #111;
 }
 
 h1 {
   font-size: 32px;
-  letter-spacing: 2px;
   font-weight: 600;
   margin-bottom: 40px;
   right: 20px;
@@ -329,7 +328,7 @@ h1:after {
 h2 {
   margin-top: 20px;
   margin-bottom: 10px;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 18px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -383,7 +382,7 @@ ul {
   padding: 12px 20px;
   color: #fff;
   display: inline-block;
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
@@ -489,7 +488,7 @@ ul {
 }
 
 .sidebar {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   position: fixed;
   width: 15%;
   float: left;
@@ -519,7 +518,7 @@ ul {
 .sidebar .logo {
   text-align: center;
   font-size: 32px;
-  font-size: 200;
+  font-size: 400;
   margin-bottom: 30px;
   display: block;
 }
@@ -620,9 +619,9 @@ ul {
 .grid article h2 {
   font-size: 22px;
   letter-spacing: 1px;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   text-overflow: ellipsis;
   text-transform: none;
   white-space: nowrap;
@@ -633,6 +632,11 @@ ul {
   line-height: 1.5;
   font-size: 18px;
   color: #666;
+}
+@media (max-width: 1000px) {
+  .grid article .excerpt {
+    font-size: 14px;
+  }
 }
 
 .thumbnail {
@@ -690,22 +694,22 @@ ul {
   color: #fff;
   font-size: 120px;
   padding: 0 100px;
-  letter-spacing: 20px;
-  margin-right: -10px;
+  letter-spacing: 10px;
   line-height: 1.2;
   margin-bottom: 55px;
+  font-weight: 700;
 }
 @media (max-width: 800px) {
   .title-hero .post-title {
-    font-size: 60px;
+    font-size: 100px;
     padding: 0 4%;
-    letter-spacing: 20px;
-    margin-right: -20px;
+    letter-spacing: 5px;
     line-height: 1.5;
   }
 }
 @media (max-width: 650px) {
   .title-hero .post-title {
+    font-size: 60px;
     word-break: break-word;
     -webkit-hyphens: auto;
        -moz-hyphens: auto;
@@ -767,7 +771,7 @@ ul {
 }
 .author .desc {
   width: 100%;
-  margin-top: -5px;
+  margin-top: 10px;
 }
 .author .desc:after {
   content: '';
@@ -775,11 +779,10 @@ ul {
   clear: both;
 }
 .author .desc span {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   display: block;
   font-size: 32px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 700;
 }
 .author .desc a {
   font-family: "skolar", serif;
@@ -794,7 +797,7 @@ ul {
   background: #111;
   color: #fff;
   margin-top: 20px;
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
@@ -837,7 +840,7 @@ ul {
 }
 
 .pagination {
-  font-family: "freight-sans-pro", sans-serif;
+  font-family: "proxima-nova", sans-serif;
   font-size: 14px;
   color: #999;
   text-transform: uppercase;
