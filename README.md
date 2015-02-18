@@ -4,10 +4,6 @@
 
 Pretty Stuff runs on the Ghost CMS using a custom theme. If you want to mess around with it locally, here is some instruction.
 
-#### Please feel free to open an issue for any bug you find on the site, thank you! 
-
-## Instructions
-
 ### Install Ghost
 For detailed instructions on various platforms, visit the [Ghost Installation Guide](http://support.ghost.org/installation/). If you get stuck, help is available on [our support site](http://support.ghost.org/).
 
@@ -30,4 +26,6 @@ Check out the [Documentation](http://support.ghost.org/) for more detailed instr
 
 ### Logging in For The First Time
 Once you have the Ghost server up and running, you should be able to navigate to `http://localhost:2368/ghost/` from a web browser, where you will be prompted to setup your blog and user account. Once you have entered your desired credentials you will be automatically logged in to the admin area. The setup screen will not be accessible once the process has been completed.
+
+#### Please feel free to open an issue for any bug you find on the site, thank you! 
 
