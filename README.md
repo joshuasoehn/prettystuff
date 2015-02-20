@@ -2,7 +2,7 @@
 
 ![Screenshot](https://d13yacurqjgara.cloudfront.net/users/13314/screenshots/1715582/prettystuff_ipad.png)
 
-Pretty Stuff runs on the Ghost CMS using a custom theme. If you want to mess around with it locally, here is some instruction.
+Pretty Stuff runs on the Ghost CMS using a custom theme. If you want to mess around with it locally, here are some instructions.
 
 ### Install Ghost
 For detailed instructions on various platforms, visit the [Ghost Installation Guide](http://support.ghost.org/installation/). If you get stuck, help is available on [our support site](http://support.ghost.org/).
