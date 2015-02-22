@@ -294,8 +294,9 @@ a {
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.8;
   margin-bottom: 25px;
+  color: #444;
 }
 p a {
   text-decoration: underline;
@@ -711,20 +712,13 @@ header .menu a:last-child {
   text-decoration: underline;
 }
 
-.post-aktiv {
-  display: inline-block;
-  color: #888;
-  font-size: 16px;
-  margin-top: 20px;
-  border-left: 2px solid #888;
-  padding-left: 10px;
-}
-.post-aktiv a {
-  color: #888;
-  text-decoration: underline;
+.post-content {
+  margin-bottom: 60px;
 }
 
 .post-meta {
+  padding-top: 20px;
+  border-top: 1px dotted #ccc;
   color: #666;
 }
 

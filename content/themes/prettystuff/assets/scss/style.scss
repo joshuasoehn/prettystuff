@@ -42,8 +42,9 @@ a {
 }
 
 p {
-	line-height: 1.7;
+	line-height: 1.8;
 	margin-bottom: 25px;
+	color: #444;
 
 	a {
 		text-decoration: underline;
@@ -429,22 +430,13 @@ header {
 
 }
 
-.post-aktiv {
-	display: inline-block;
-	color: #888;
-	font-size: 16px;
-	margin-top: 20px;
-	border-left: 2px solid #888;
-	padding-left: 10px;
-
-	a {
-		color: #888;
-		text-decoration: underline;
-	}
-
+.post-content {
+	margin-bottom: 60px;
 }
 
 .post-meta {
+	padding-top: 20px;
+	border-top: 1px dotted #ccc;
 	color: #666;
 }
 
