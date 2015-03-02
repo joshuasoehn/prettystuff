@@ -11,7 +11,16 @@ config = {
     // Configure your URL and mail settings here
     production: {
         url: 'http://prettystuff.io',
-        mail: {},
+        mail: {
+	transport: 'SMTP',
+             options: {
+                  service: 'Mailgun',
+                  auth: {
+                      user: 'postmaster@mg.prettystuff.io', // mailgun username
+                      pass: '$MG_PW'  // mailgun password
+                  }
+              }
+	},
         database: {
             client: 'sqlite3',
             connection: {
