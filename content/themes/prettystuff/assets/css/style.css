@@ -704,7 +704,6 @@ header .menu a:last-child {
 }
 .title-hero .tags a {
   color: #fff;
-  margin: 5px;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
 }
