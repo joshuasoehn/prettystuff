@@ -677,12 +677,11 @@ header .menu a:last-child {
   .title-hero .post-title {
     font-size: 100px;
     padding: 0 4%;
-    letter-spacing: 5px;
   }
 }
 @media (max-width: 650px) {
   .title-hero .post-title {
-    font-size: 60px;
+    font-size: 40px;
     word-break: break-word;
     -webkit-hyphens: auto;
        -moz-hyphens: auto;
