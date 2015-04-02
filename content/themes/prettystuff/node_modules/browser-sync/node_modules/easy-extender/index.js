@@ -55,7 +55,15 @@ EasyExtender.prototype.initUserPlugins = function () {
                 value: this.get(plugin).apply(null, [pluginOptions].concat(args))
             });
 
-            this.enablePlugin(plugin);
+            if (!_.isUndefined(pluginOptions) && !_.isUndefined(pluginOptions.enabled)) {
+                if (pluginOptions.enabled) {
+                    this.enablePlugin(plugin);
+                } else {
+                    this.disablePlugin(plugin);
+                }
+            } else {
+                this.enablePlugin(plugin);
+            }
 
         }, this);
     }
