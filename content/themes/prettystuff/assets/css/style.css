@@ -723,14 +723,6 @@ article.page {
 
 .author-wrapper {
   width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   overflow: hidden;
   margin-top: 40px;
 }
@@ -740,14 +732,19 @@ article.page {
 
 .author {
   overflow: hidden;
-  width: 45%;
+  float: left;
+  width: 48%;
+  margin-right: 2%;
   position: relative;
   background: #000;
+}
+.author:nth-child(3n) {
+  margin-right: 0;
 }
 .author:hover img {
   opacity: .4;
 }
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .author {
     width: 100%;
     margin-bottom: 40px;
