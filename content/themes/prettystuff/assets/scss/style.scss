@@ -26,7 +26,7 @@ body{
 
 html {
 	-webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -34,6 +34,9 @@ body {
 	font-size: 18px;
 	color: #333;
 	overflow-x: hidden;
+	display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 a {
@@ -262,6 +265,7 @@ header {
 	z-index: 2;
 	transform: none;
 	transition: transform .3s cubic-bezier(0.2,0.3,0.25,0.9);
+	flex: 1;
 	@media (max-width: 800px) {
 		width: 100%;
 		float: none;

@@ -286,6 +286,16 @@ body {
   font-size: 18px;
   color: #333;
   overflow-x: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 a {
@@ -522,6 +532,10 @@ header .menu a:last-child {
           transform: none;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
           transition: transform 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 @media (max-width: 800px) {
   .site {
