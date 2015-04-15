@@ -286,16 +286,6 @@ body {
   font-size: 18px;
   color: #333;
   overflow-x: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  min-height: 100vh;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 a {
@@ -532,10 +522,6 @@ header .menu a:last-child {
           transform: none;
   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
           transition: transform 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
 }
 @media (max-width: 800px) {
   .site {
@@ -725,6 +711,35 @@ article.page {
   text-decoration: underline;
 }
 
+.title-hero.next {
+  margin: 100px auto 60px;
+  height: 400px;
+}
+.title-hero.next .post-title {
+  margin-bottom: 20px;
+}
+.title-hero.next .darker {
+  background: rgba(0, 0, 0, 0.7);
+}
+.title-hero.next span {
+  display: inline-block;
+  font-style: italic;
+  color: #fff;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #fff;
+}
+.title-hero.next .button {
+  color: #111;
+  background: #fff;
+  padding: 15px 20px;
+}
+@media (max-width: 1000px) {
+  .title-hero.next .button {
+    width: auto;
+  }
+}
+
 .post-content {
   margin-bottom: 60px;
 }
@@ -733,6 +748,9 @@ article.page {
   padding-top: 20px;
   border-top: 1px dotted #ccc;
   color: #666;
+}
+.post-meta a:hover {
+  text-decoration: underline;
 }
 
 .author-wrapper {

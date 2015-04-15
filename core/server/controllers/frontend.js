@@ -5,44 +5,21 @@
 /*global require, module */
 
 var moment      = require('moment'),
-    RSS         = require('rss'),
+    rss         = require('../data/xml/rss'),
     _           = require('lodash'),
-    url         = require('url'),
     Promise     = require('bluebird'),
     api         = require('../api'),
     config      = require('../config'),
     filters     = require('../filters'),
     template    = require('../helpers/template'),
     errors      = require('../errors'),
-    cheerio     = require('cheerio'),
+    routeMatch  = require('path-match')(),
 
     frontendControllers,
-    staticPostPermalink,
-    oldRoute,
-    dummyRouter = require('express').Router();
-
-// Overload this dummyRouter as we only want the layer object.
-// We don't want to keep in memory many items in an array so we
-// clear the stack array after every invocation.
-oldRoute = dummyRouter.route;
-dummyRouter.route = function () {
-    var layer;
-
-    // Apply old route method
-    oldRoute.apply(dummyRouter, arguments);
-
-    // Grab layer object
-    layer = dummyRouter.stack[0];
-
-    // Reset stack array for memory purposes
-    dummyRouter.stack = [];
-
-    // Return layer
-    return layer;
-};
+    staticPostPermalink;
 
 // Cache static post permalink regex
-staticPostPermalink = dummyRouter.route('/:slug/:edit?');
+staticPostPermalink = routeMatch('/:slug/:edit?');
 
 function getPostPage(options) {
     return api.settings.read('postsPerPage').then(function (response) {
@@ -58,7 +35,12 @@ function getPostPage(options) {
     });
 }
 
-function formatPageResponse(posts, page) {
+/**
+ * formats variables for handlebars in multi-post contexts.
+ * If extraValues are available, they are merged in the final value
+ * @return {Object} containing page variables
+ */
+function formatPageResponse(posts, page, extraValues) {
     // Delete email from author for frontend output
     // TODO: do this on API level if no context is available
     posts = _.each(posts, function (post) {
@@ -67,19 +49,29 @@ function formatPageResponse(posts, page) {
         }
         return post;
     });
-    return {
+    extraValues = extraValues || {};
+
+    var resp = {
         posts: posts,
         pagination: page.meta.pagination
     };
+    return _.extend(resp, extraValues);
 }
 
+/**
+ * similar to formatPageResponse, but for single post pages
+ * @return {Object} containing page variables
+ */
 function formatResponse(post) {
     // Delete email from author for frontend output
     // TODO: do this on API level if no context is available
     if (post.author) {
         delete post.author.email;
     }
-    return {post: post};
+
+    return {
+        post: post
+    };
 }
 
 function handleError(next) {
@@ -90,23 +82,25 @@ function handleError(next) {
 
 function setResponseContext(req, res, data) {
     var contexts = [],
-        pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1;
+        pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,
+        tagPattern = new RegExp('^\\/' + config.routeKeywords.tag + '\\/'),
+        authorPattern = new RegExp('^\\/' + config.routeKeywords.author + '\\/');
 
     // paged context
     if (!isNaN(pageParam) && pageParam > 1) {
         contexts.push('paged');
     }
 
-    if (req.route.path === '/page/:page/') {
+    if (req.route.path === '/' + config.routeKeywords.page + '/:page/') {
         contexts.push('index');
     } else if (req.route.path === '/') {
         contexts.push('home');
         contexts.push('index');
     } else if (/\/rss\/(:page\/)?$/.test(req.route.path)) {
         contexts.push('rss');
-    } else if (/^\/tag\//.test(req.route.path)) {
+    } else if (tagPattern.test(req.route.path)) {
         contexts.push('tag');
-    } else if (/^\/author\//.test(req.route.path)) {
+    } else if (authorPattern.test(req.route.path)) {
         contexts.push('author');
     } else if (data && data.post && data.post.page) {
         contexts.push('page');
@@ -191,7 +185,7 @@ frontendControllers = {
 
         // Get url for tag page
         function tagUrl(tag, page) {
-            var url = config.paths.subdir + '/tag/' + tag + '/';
+            var url = config.paths.subdir + '/' + config.routeKeywords.tag  + '/' + tag + '/';
 
             if (page && page > 1) {
                 url += 'page/' + page + '/';
@@ -220,9 +214,8 @@ frontendControllers = {
             filters.doFilter('prePostsRender', page.posts).then(function (posts) {
                 getActiveThemePaths().then(function (paths) {
                     var view = template.getThemeViewForTag(paths, options.tag),
-
-                        // Format data for template
-                        result = _.extend(formatPageResponse(posts, page), {
+                    // Format data for template
+                        result = formatPageResponse(posts, page, {
                             tag: page.meta.filters.tags ? page.meta.filters.tags[0] : ''
                         });
 
@@ -246,10 +239,10 @@ frontendControllers = {
 
         // Get url for tag page
         function authorUrl(author, page) {
-            var url = config.paths.subdir + '/author/' + author + '/';
+            var url = config.paths.subdir + '/' + config.routeKeywords.author + '/' + author + '/';
 
             if (page && page > 1) {
-                url += 'page/' + page + '/';
+                url += config.routeKeywords.page + '/' + page + '/';
             }
 
             return url;
@@ -275,9 +268,8 @@ frontendControllers = {
             filters.doFilter('prePostsRender', page.posts).then(function (posts) {
                 getActiveThemePaths().then(function (paths) {
                     var view = paths.hasOwnProperty('author.hbs') ? 'author' : 'index',
-
                         // Format data for template
-                        result = _.extend(formatPageResponse(posts, page), {
+                        result = formatPageResponse(posts, page, {
                             author: page.meta.filters.author ? page.meta.filters.author : ''
                         });
 
@@ -296,38 +288,40 @@ frontendControllers = {
     single: function (req, res, next) {
         var path = req.path,
             params,
-            editFormat,
             usingStaticPermalink = false;
 
         api.settings.read('permalinks').then(function (response) {
             var permalink = response.settings[0],
-                postLookup;
+                editFormat,
+                postLookup,
+                match;
 
             editFormat = permalink.value[permalink.value.length - 1] === '/' ? ':edit?' : '/:edit?';
 
-            // Convert saved permalink into an express Route object
-            permalink = dummyRouter.route(permalink.value + editFormat);
+            // Convert saved permalink into a path-match function
+            permalink = routeMatch(permalink.value + editFormat);
+            match = permalink(path);
 
             // Check if the path matches the permalink structure.
             //
             // If there are no matches found we then
             // need to verify it's not a static post,
             // and test against that permalink structure.
-            if (permalink.match(path) === false) {
+            if (match === false) {
+                match = staticPostPermalink(path);
                 // If there are still no matches then return.
-                if (staticPostPermalink.match(path) === false) {
+                if (match === false) {
                     // Reject promise chain with type 'NotFound'
                     return Promise.reject(new errors.NotFoundError());
                 }
 
-                permalink = staticPostPermalink;
                 usingStaticPermalink = true;
             }
 
-            params = permalink.params;
+            params = match;
 
             // Sanitize params we're going to use to lookup the post.
-            postLookup = _.pick(permalink.params, 'slug', 'id');
+            postLookup = _.pick(params, 'slug', 'id');
             // Add author, tag and fields
             postLookup.include = 'author,tags,fields';
 
@@ -388,7 +382,7 @@ frontendControllers = {
                 return next();
             }
 
-            // If there is any date based paramter in the slug
+            // If there is any date based parameter in the slug
             // we will check it against the post published date
             // to verify it's correct.
             if (params.year || params.month || params.day) {
@@ -429,128 +423,7 @@ frontendControllers = {
             return handleError(next)(err);
         });
     },
-    rss: function (req, res, next) {
-        function isPaginated() {
-            return req.route.path.indexOf(':page') !== -1;
-        }
-
-        function isTag() {
-            return req.route.path.indexOf('/tag/') !== -1;
-        }
-
-        function isAuthor() {
-            return req.route.path.indexOf('/author/') !== -1;
-        }
-
-        // Initialize RSS
-        var pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,
-            slugParam = req.params.slug,
-            baseUrl = config.paths.subdir;
-
-        if (isTag()) {
-            baseUrl += '/tag/' + slugParam + '/rss/';
-        } else if (isAuthor()) {
-            baseUrl += '/author/' + slugParam + '/rss/';
-        } else {
-            baseUrl += '/rss/';
-        }
-
-        // No negative pages, or page 1
-        if (isNaN(pageParam) || pageParam < 1 || (pageParam === 1 && isPaginated())) {
-            return res.redirect(baseUrl);
-        }
-
-        return Promise.all([
-            api.settings.read('title'),
-            api.settings.read('description'),
-            api.settings.read('permalinks')
-        ]).then(function (result) {
-            var options = {};
-
-            if (pageParam) { options.page = pageParam; }
-            if (isTag()) { options.tag = slugParam; }
-            if (isAuthor()) { options.author = slugParam; }
-
-            options.include = 'author,tags,fields';
-
-            return api.posts.browse(options).then(function (page) {
-                var title = result[0].settings[0].value,
-                    description = result[1].settings[0].value,
-                    permalinks = result[2].settings[0],
-                    majorMinor = /^(\d+\.)?(\d+)/,
-                    trimmedVersion = res.locals.version,
-                    siteUrl = config.urlFor('home', {secure: req.secure}, true),
-                    feedUrl = config.urlFor('rss', {secure: req.secure}, true),
-                    maxPage = page.meta.pagination.pages,
-                    feed;
-
-                trimmedVersion = trimmedVersion ? trimmedVersion.match(majorMinor)[0] : '?';
-
-                if (isTag()) {
-                    if (page.meta.filters.tags) {
-                        title = page.meta.filters.tags[0].name + ' - ' + title;
-                        feedUrl = siteUrl + 'tag/' + page.meta.filters.tags[0].slug + '/rss/';
-                    }
-                }
-
-                if (isAuthor()) {
-                    if (page.meta.filters.author) {
-                        title = page.meta.filters.author.name + ' - ' + title;
-                        feedUrl = siteUrl + 'author/' + page.meta.filters.author.slug + '/rss/';
-                    }
-                }
-
-                feed = new RSS({
-                    title: title,
-                    description: description,
-                    generator: 'Ghost ' + trimmedVersion,
-                    feed_url: feedUrl,
-                    site_url: siteUrl,
-                    ttl: '60'
-                });
-
-                // If page is greater than number of pages we have, redirect to last page
-                if (pageParam > maxPage) {
-                    return res.redirect(baseUrl + maxPage + '/');
-                }
-
-                setReqCtx(req, page.posts);
-                setResponseContext(req, res);
-
-                filters.doFilter('prePostsRender', page.posts).then(function (posts) {
-                    posts.forEach(function (post) {
-                        var item = {
-                                title: post.title,
-                                guid: post.uuid,
-                                url: config.urlFor('post', {post: post, permalinks: permalinks}, true),
-                                date: post.published_at,
-                                categories: _.pluck(post.tags, 'name'),
-                                author: post.author ? post.author.name : null
-                            },
-                            htmlContent = cheerio.load(post.html, {decodeEntities: false});
-
-                        // convert relative resource urls to absolute
-                        ['href', 'src'].forEach(function (attributeName) {
-                            htmlContent('[' + attributeName + ']').each(function (ix, el) {
-                                el = htmlContent(el);
-
-                                var attributeValue = el.attr(attributeName);
-                                attributeValue = url.resolve(siteUrl, attributeValue);
-
-                                el.attr(attributeName, attributeValue);
-                            });
-                        });
-
-                        item.description = htmlContent.html();
-                        feed.item(item);
-                    });
-                }).then(function () {
-                    res.set('Content-Type', 'application/rss+xml; charset=UTF-8');
-                    res.send(feed.xml());
-                });
-            });
-        }).catch(handleError(next));
-    }
+    rss: rss
 };
 
 module.exports = frontendControllers;

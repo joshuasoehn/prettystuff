@@ -34,9 +34,6 @@ body {
 	font-size: 18px;
 	color: #333;
 	overflow-x: hidden;
-	display: flex;
-  min-height: 100vh;
-  flex-direction: column;
 }
 
 a {
@@ -265,7 +262,6 @@ header {
 	z-index: 2;
 	transform: none;
 	transition: transform .3s cubic-bezier(0.2,0.3,0.25,0.9);
-	flex: 1;
 	@media (max-width: 800px) {
 		width: 100%;
 		float: none;
@@ -437,6 +433,36 @@ article.page {
 
 }
 
+.title-hero.next {
+	margin: 100px auto 60px;
+	height: 400px;
+	.post-title {
+		margin-bottom: 20px;
+	}
+
+	.darker {
+		background: rgba(0,0,0, .7);
+	}
+
+	span {
+		display: inline-block;
+		font-style: italic;
+		color: #fff;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #fff;
+	}
+
+	.button {
+		color: #111;
+		background: #fff;
+		padding: 15px 20px;
+		@media (max-width: 1000px) {
+			width: auto;
+		}
+	}
+}
+
 .post-content {
 	margin-bottom: 60px;
 }
@@ -445,6 +471,9 @@ article.page {
 	padding-top: 20px;
 	border-top: 1px dotted #ccc;
 	color: #666;
+	a:hover {
+		text-decoration: underline;
+	}
 }
 
 .author-wrapper {
