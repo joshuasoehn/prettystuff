@@ -19,14 +19,12 @@ $skolar: "skolar", serif;
 	box-sizing: border-box;
 }
 
-html,
-body{
-	min-height: 100%;
-}
 
 html {
 	-webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
@@ -34,6 +32,7 @@ body {
 	font-size: 18px;
 	color: #333;
 	overflow-x: hidden;
+	margin-bottom: 110px;
 }
 
 a {
@@ -48,6 +47,9 @@ p {
 
 	a {
 		text-decoration: underline;
+		&:hover {
+			color: blue;
+		}
 	}
 
 }
@@ -133,6 +135,7 @@ ul {
 	}
 	&:hover {
 		background: #333;
+		color: #fff;
 		&::after {
 			padding-left: 20px;
 		}
@@ -222,6 +225,14 @@ header {
 	padding: 60px 0;
 	font-family: $proxima;
 	font-weight: 600;
+	overflow: hidden;
+	@media (max-width: 1250px) {
+    padding: 60px 3%;
+	}
+
+	@media (max-width: 800px) {
+    padding: 60px 6%;
+	}
 
 	.inner {
 		max-width: 1200px;
@@ -229,26 +240,37 @@ header {
 	}
 
 	.logo {
-		text-align: center;
+		float: left;
 		text-transform: uppercase;
 		letter-spacing: 4px;
+		& a:hover {
+
+		}
 	}
 
 	.menu {
-		text-align: center;
-		margin-top: 20px;
-		font-family: $skolar;
+		width: 65%;
+		float: right;
 		font-weight: 400;
-		a {
-			font-size: 16px;
-			margin-right: 30px;
-			padding-bottom: 2px;
-			&:hover, &.active {
-				border-bottom: 1px solid #ccc;
+		.col {
+			box-sizing: border-box;
+			width: 30%;
+			float: right;
+			@media (max-width: 800px) {
+				width: 40%;
 			}
 		}
-		a:last-child {
-			margin-right: 0;
+		a {
+			color: #666;
+			text-align: right;
+			display: block;
+			margin-bottom: 10px;
+			font-weight: 600;
+			font-size: 16px;
+			padding-bottom: 2px;
+			&:hover, &.active {
+				color: blue;
+			}
 		}
 	}
 
@@ -365,11 +387,17 @@ header {
 	}
 }
 
+.single-page {
+	max-width: 100%;
+}
+
 
 article.page {
 	box-sizing: border-box;
 	max-width: 650px;
-	margin: auto;
+	h1 {
+		text-align: left;
+	}
 }
 
 .title-hero {
@@ -600,7 +628,7 @@ article.page {
 	letter-spacing: 2px;
 	font-weight: 600;
 	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-bottom: 100px;
 	display: block;
 	width: 100%;
 	text-align: center;
@@ -610,33 +638,54 @@ article.page {
 	}
 }
 
+
+
 footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
 	clear: both;
 	width: 100%;
 	box-sizing: border-box;
 	margin-top: 20px;
 	background: #f6f6f6;
-	padding: 40px 0 20px;
+	line-height: 110px;
+	height: 110px;
 	color: #888;
 	text-align: center;
 	font-size: 14px;
+	overflow: hidden;
+
+	.inner {
+		max-width: 1200px;
+		margin: auto;
+		@media (max-width: 1200px) {
+			padding: 0px 3%;
+		}
+
+	}
 
 	span {
 		display: block;
-		padding: 0 6%;
+		float: left;
+		font-size: 12px;
 	}
 	
 	.top {
 		font-family: $proxima;
-		margin-bottom: 25px;
-		display: inline-block;
-		color: #666;
-		font-weight: 600;
-		font-size: 16px;
-		line-height: 2;
-		transition: all .4s ease;
+		float: right;
+		display: block;
+		padding: 10px;
+		background: transparent;
+		line-height: 1;
+		width: 30px;
+		height: 30px;
+		color: #111;
+		font-weight: 800;
+		margin-top: 40px;
 		&:hover {
-			color: #111;
+			background: blue;
+			color: #fff;
 		}
 	}
 

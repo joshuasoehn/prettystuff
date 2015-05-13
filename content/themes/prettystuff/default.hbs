@@ -33,14 +33,16 @@
     {{ghost_head}}
 </head>
 <body class="{{body_class}}">
-
+    
+    <div class="page">
     {{> header}}
 
     {{! Everything else gets inserted here }}
     <div class="site">
         {{{body}}}
     </div>
-
+    </div>
+    
     {{> footer}}
 
     {{! Ghost outputs important scripts and data with this tag }}
