@@ -503,12 +503,13 @@ header .inner {
   margin: 0 auto;
 }
 header .logo {
+  margin-right: 10px;
   float: left;
   text-transform: uppercase;
   letter-spacing: 4px;
 }
 header .menu {
-  width: 65%;
+  width: 60%;
   float: right;
   font-weight: 300;
 }
@@ -519,7 +520,7 @@ header .menu .col {
 }
 @media (max-width: 800px) {
   header .menu .col {
-    width: 48%;
+    width: 50%;
   }
 }
 header .menu a {
@@ -532,8 +533,9 @@ header .menu a {
 }
 @media (max-width: 800px) {
   header .menu a {
-    margin-bottom: 5px;
-    text-align: left;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: right;
   }
 }
 header .menu a:hover, header .menu a.active {
@@ -942,9 +944,9 @@ footer span {
   float: left;
   font-size: 12px;
 }
-@media (max-width: 800px) {
+@media (max-width: 750px) {
   footer span {
-    font-size: 10px;
+    font-size: 8px;
   }
 }
 footer .top {

@@ -240,6 +240,7 @@ header {
 	}
 
 	.logo {
+		margin-right: 10px;
 		float: left;
 		text-transform: uppercase;
 		letter-spacing: 4px;
@@ -249,7 +250,7 @@ header {
 	}
 
 	.menu {
-		width: 65%;
+		width: 60%;
 		float: right;
 		font-weight: 300;
 		.col {
@@ -257,7 +258,7 @@ header {
 			width: 30%;
 			float: right;
 			@media (max-width: 800px) {
-				width: 48%;
+				width: 50%;
 			}
 		}
 		a {
@@ -268,8 +269,9 @@ header {
 			font-weight: 600;
 			font-size: 16px;
 			@media (max-width: 800px) {
-    		margin-bottom: 5px;
-    		text-align: left;
+				font-size: 14px;
+    		margin-bottom: 8px;
+    		text-align: right;
 			}
 			&:hover, &.active {
 				color: blue;
@@ -672,8 +674,8 @@ footer {
 		display: block;
 		float: left;
 		font-size: 12px;
-		@media (max-width: 800px) {
-    	font-size: 10px;
+		@media (max-width: 750px) {
+    	font-size: 8px;
 		}
 	}
 	
