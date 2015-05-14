@@ -304,7 +304,7 @@ p a:hover {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   display: block;
   color: #111;
 }
@@ -373,7 +373,7 @@ ul {
   padding: 12px 20px;
   color: #fff;
   display: inline-block;
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
@@ -484,7 +484,7 @@ ul {
 header {
   width: 100%;
   padding: 60px 0;
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   font-weight: 600;
   overflow: hidden;
 }
@@ -510,7 +510,7 @@ header .logo {
 header .menu {
   width: 65%;
   float: right;
-  font-weight: 400;
+  font-weight: 300;
 }
 header .menu .col {
   box-sizing: border-box;
@@ -519,7 +519,7 @@ header .menu .col {
 }
 @media (max-width: 800px) {
   header .menu .col {
-    width: 40%;
+    width: 48%;
   }
 }
 header .menu a {
@@ -529,7 +529,12 @@ header .menu a {
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 16px;
-  padding-bottom: 2px;
+}
+@media (max-width: 800px) {
+  header .menu a {
+    margin-bottom: 5px;
+    text-align: left;
+  }
 }
 header .menu a:hover, header .menu a.active {
   color: blue;
@@ -827,7 +832,7 @@ article.page h1 {
   left: 20px;
 }
 .author .desc span a {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   display: block;
   font-size: 32px;
   font-weight: 700;
@@ -848,7 +853,7 @@ article.page h1 {
   background: #111;
   color: #fff;
   margin-top: 40px;
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
@@ -891,7 +896,7 @@ article.page h1 {
 }
 
 .pagination {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   font-size: 14px;
   color: #999;
   text-transform: uppercase;
@@ -937,8 +942,13 @@ footer span {
   float: left;
   font-size: 12px;
 }
+@media (max-width: 800px) {
+  footer span {
+    font-size: 10px;
+  }
+}
 footer .top {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "myriad-pro", sans-serif;
   float: right;
   display: block;
   padding: 10px;

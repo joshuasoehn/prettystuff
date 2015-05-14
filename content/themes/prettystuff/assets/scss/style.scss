@@ -1,7 +1,7 @@
 @import 'lightcase';
 
 
-$proxima: "proxima-nova",sans-serif;
+$headlines: "myriad-pro", sans-serif;
 $skolar: "skolar", serif;
 
 @mixin vertical-align {
@@ -55,7 +55,7 @@ p {
 }
 
 h1, h2, h3, h4, h5 {
-	font-family: $proxima;
+	font-family: $headlines;
 	display: block;
 	color: #111;
 }
@@ -119,7 +119,7 @@ ul {
 	padding: 12px 20px;
 	color: #fff;
 	display: inline-block;
-	font-family: $proxima;
+	font-family: $headlines;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-size: 14px;
@@ -223,7 +223,7 @@ ul {
 header {
 	width: 100%;
 	padding: 60px 0;
-	font-family: $proxima;
+	font-family: $headlines;
 	font-weight: 600;
 	overflow: hidden;
 	@media (max-width: 1250px) {
@@ -251,13 +251,13 @@ header {
 	.menu {
 		width: 65%;
 		float: right;
-		font-weight: 400;
+		font-weight: 300;
 		.col {
 			box-sizing: border-box;
 			width: 30%;
 			float: right;
 			@media (max-width: 800px) {
-				width: 40%;
+				width: 48%;
 			}
 		}
 		a {
@@ -267,7 +267,10 @@ header {
 			margin-bottom: 10px;
 			font-weight: 600;
 			font-size: 16px;
-			padding-bottom: 2px;
+			@media (max-width: 800px) {
+    		margin-bottom: 5px;
+    		text-align: left;
+			}
 			&:hover, &.active {
 				color: blue;
 			}
@@ -548,7 +551,7 @@ article.page {
 
 
 	span a {
-		font-family: $proxima;
+		font-family: $headlines;
 		display: block;
 		font-size: 32px;
 		font-weight: 700;
@@ -573,7 +576,7 @@ article.page {
 	background: #111;
 	color: #fff;
 	margin-top: 40px;
-	font-family: $proxima;
+	font-family: $headlines;
 	text-transform: uppercase;
 	font-weight: 600;
 	letter-spacing: 2px;
@@ -621,7 +624,7 @@ article.page {
 }
 
 .pagination {
-	font-family: $proxima;
+	font-family: $headlines;
 	font-size: 14px;
 	color: #999;
 	text-transform: uppercase;
@@ -669,10 +672,13 @@ footer {
 		display: block;
 		float: left;
 		font-size: 12px;
+		@media (max-width: 800px) {
+    	font-size: 10px;
+		}
 	}
 	
 	.top {
-		font-family: $proxima;
+		font-family: $headlines;
 		float: right;
 		display: block;
 		padding: 10px;
