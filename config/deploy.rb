@@ -66,6 +66,10 @@ task :deploy => :environment do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
+
+    invoke :'move'
+    invoke :'restart'
+
   end
 end
 
