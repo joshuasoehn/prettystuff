@@ -48,7 +48,7 @@ p {
 	a {
 		text-decoration: underline;
 		&:hover {
-			color: blue;
+			color: #0056f4;
 		}
 	}
 
@@ -242,10 +242,15 @@ header {
 	.logo {
 		margin-right: 10px;
 		float: left;
-		text-transform: uppercase;
-		letter-spacing: 4px;
-		& a:hover {
-
+		img {
+		width: 55px;
+		transform: scale(.99);
+			@media (max-width: 800px) {
+			width: 45px; 	
+			}		
+		}
+		& a img:hover {
+			cursor: pointer;
 		}
 	}
 
@@ -274,7 +279,7 @@ header {
     		text-align: right;
 			}
 			&:hover, &.active {
-				color: blue;
+				color: #0056f4;
 			}
 		}
 	}
@@ -692,7 +697,7 @@ footer {
 		font-weight: 800;
 		margin-top: 40px;
 		&:hover {
-			background: blue;
+			background: #0056f4;
 			color: #fff;
 		}
 	}

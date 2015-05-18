@@ -300,7 +300,7 @@ p a {
   text-decoration: underline;
 }
 p a:hover {
-  color: blue;
+  color: #0056f4;
 }
 
 h1, h2, h3, h4, h5 {
@@ -505,8 +505,20 @@ header .inner {
 header .logo {
   margin-right: 10px;
   float: left;
-  text-transform: uppercase;
-  letter-spacing: 4px;
+}
+header .logo img {
+  width: 55px;
+  -webkit-transform: scale(0.99);
+      -ms-transform: scale(0.99);
+          transform: scale(0.99);
+}
+@media (max-width: 800px) {
+  header .logo img {
+    width: 45px;
+  }
+}
+header .logo a img:hover {
+  cursor: pointer;
 }
 header .menu {
   width: 60%;
@@ -539,7 +551,7 @@ header .menu a {
   }
 }
 header .menu a:hover, header .menu a.active {
-  color: blue;
+  color: #0056f4;
 }
 
 .site {
@@ -963,7 +975,7 @@ footer .top {
   margin-top: 40px;
 }
 footer .top:hover {
-  background: blue;
+  background: #0056f4;
   color: #fff;
 }
 
