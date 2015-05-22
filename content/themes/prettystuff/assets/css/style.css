@@ -279,8 +279,8 @@ html {
 }
 
 body {
-  font-family: "freight-text-pro", serif;
-  font-size: 22px;
+  font-family: "skolar", serif;
+  font-size: 18px;
   color: #333;
   overflow-x: hidden;
   margin-bottom: 110px;
@@ -391,7 +391,7 @@ ul {
           transition: all .4s ease;
 }
 .button:hover {
-  background: #333;
+  background: blue;
   color: #fff;
 }
 .button:hover::after {
@@ -716,7 +716,7 @@ article.page h1 {
   }
 }
 .title-hero .darker {
-  background: rgba(16, 16, 254, 0.75);
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
 }
@@ -770,15 +770,17 @@ article.page h1 {
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
   border: 0px solid #111;
-  background: #f8f8f8;
-}
-.title-hero.next:hover {
-  border: 10px solid #111;
+  background: url(../images/geometry.png) #f8f8f8;
 }
 .title-hero.next .post-title {
   margin-bottom: 20px;
   line-height: 1.2;
   color: #111;
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+}
+.title-hero.next .post-title:hover {
+  color: blue;
 }
 .title-hero.next .darker {
   background: rgba(16, 16, 254, 0);
@@ -860,7 +862,7 @@ article.page h1 {
   font-weight: 700;
 }
 .author .desc a {
-  font-family: "freight-text-pro", serif;
+  font-family: "skolar", serif;
   display: block;
   font-size: 18px;
   margin-top: 2px;
