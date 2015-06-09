@@ -283,6 +283,7 @@ body {
   font-size: 18px;
   color: #333;
   overflow-x: hidden;
+  background: #eee;
   margin-bottom: 110px;
 }
 
@@ -391,7 +392,7 @@ ul {
           transition: all .4s ease;
 }
 .button:hover {
-  background: blue;
+  background: #888;
   color: #fff;
 }
 .button:hover::after {
@@ -441,46 +442,6 @@ ul {
   margin-top: 20px;
 }
 
-.menu-toggle {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #fff;
-  width: 40px;
-  height: 40px;
-  padding: 0 11px;
-  outline: none;
-  cursor: pointer;
-  margin: 0;
-  z-index: 11111;
-}
-@media (min-width: 800px) {
-  .menu-toggle {
-    display: none;
-  }
-}
-.menu-toggle span,
-.menu-toggle span:before,
-.menu-toggle span:after {
-  position: relative;
-  display: block;
-  background: #111;
-  width: 100%;
-  height: 2px;
-}
-.menu-toggle span:before,
-.menu-toggle span:after {
-  position: absolute;
-  left: 0;
-  content: "";
-}
-.menu-toggle span:before {
-  margin-top: -6px;
-}
-.menu-toggle span:after {
-  margin-top: 6px;
-}
-
 header {
   width: 100%;
   padding: 60px 0;
@@ -488,38 +449,18 @@ header {
   font-weight: 600;
   overflow: hidden;
 }
-@media (max-width: 1250px) {
-  header {
-    padding: 60px 3%;
-  }
-}
-@media (max-width: 800px) {
-  header {
-    padding: 60px 6%;
-  }
-}
 header .inner {
-  max-width: 1200px;
+  padding: 0 3%;
   margin: 0 auto;
 }
 header .logo {
-  margin-right: 10px;
-  float: left;
-  position: relative;
-}
-header .logo :after {
-  z-index: -1;
-  border-radius: 50%;
-  -webkit-transform: scale(0);
-      -ms-transform: scale(0);
-          transform: scale(0);
-  content: '';
-  width: 55px;
-  height: 55px;
-  top: 0;
-  left: 0;
-  background: blue;
   position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 55px;
+  margin: auto;
 }
 header .logo img {
   width: 55px;
@@ -542,9 +483,9 @@ header .menu .col {
   width: 30%;
   float: right;
 }
-@media (max-width: 800px) {
-  header .menu .col {
-    width: 50%;
+@media (max-width: 600px) {
+  header .menu .col.social {
+    display: none;
   }
 }
 header .menu a {
@@ -563,13 +504,11 @@ header .menu a {
   }
 }
 header .menu a:hover, header .menu a.active {
-  color: blue;
-  text-decoration: line-through;
+  text-decoration: underline;
 }
 
 .site {
   margin: 0 auto;
-  max-width: 1200px;
   overflow: hidden;
   z-index: 2;
   -webkit-transform: none;
@@ -583,12 +522,6 @@ header .menu a:hover, header .menu a.active {
     width: 100%;
     float: none;
   }
-}
-
-.pull-right {
-  -webkit-transform: translateX(250px);
-      -ms-transform: translateX(250px);
-          transform: translateX(250px);
 }
 
 .wrapper-inner {
@@ -617,11 +550,7 @@ header .menu a:hover, header .menu a.active {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-@media (max-width: 1250px) {
-  .grid {
-    padding: 0 3%;
-  }
+  padding: 0 3%;
 }
 @media (max-width: 800px) {
   .grid {
@@ -651,9 +580,6 @@ header .menu a:hover, header .menu a.active {
   text-transform: none;
   white-space: nowrap;
   overflow: hidden;
-}
-.grid article a:hover {
-  color: blue;
 }
 .grid article .excerpt {
   margin-top: 0px;
@@ -686,7 +612,11 @@ header .menu a:hover, header .menu a.active {
   background: #eee;
 }
 
-.single-post a img:hover, .page a img:hover {
+.post-template .site {
+  background: #fff;
+}
+
+.single-post a img:hover {
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
 }
@@ -698,6 +628,7 @@ header .menu a:hover, header .menu a.active {
 article.page {
   box-sizing: border-box;
   max-width: 650px;
+  margin: 20px auto 0;
 }
 article.page h1 {
   text-align: left;
@@ -765,12 +696,12 @@ article.page h1 {
 }
 
 .title-hero.next {
-  margin: 100px auto 60px;
+  margin: 100px auto 0;
   height: 300px;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
   border: 0px solid #111;
-  background: url(../images/geometry.png) #f8f8f8;
+  background: #eee;
 }
 .title-hero.next .post-title {
   margin-bottom: 20px;
@@ -778,9 +709,6 @@ article.page h1 {
   color: #111;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
-}
-.title-hero.next .post-title:hover {
-  color: blue;
 }
 .title-hero.next .darker {
   background: rgba(16, 16, 254, 0);
@@ -808,7 +736,7 @@ article.page h1 {
 }
 .post-meta a:hover {
   text-decoration: underline;
-  color: blue;
+  color: #000;
 }
 
 .author-wrapper {
@@ -932,11 +860,23 @@ article.page h1 {
   width: 100%;
   text-align: center;
 }
+.pagination .page-number {
+  display: none;
+}
 .pagination a {
   color: #111;
+  background: #fff;
+  padding: 15px;
+  font-size: 12px;
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+}
+.pagination a:hover {
+  background: #888;
 }
 
 footer {
+  font-family: "europa", sans-serif;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -944,23 +884,15 @@ footer {
   width: 100%;
   box-sizing: border-box;
   margin-top: 20px;
-  background: #fff;
-  line-height: 110px;
   height: 110px;
+  line-height: 110px;
   color: #888;
   text-align: center;
   font-size: 14px;
   overflow: hidden;
 }
 footer .inner {
-  border-top: 2px solid #111;
-  max-width: 1200px;
-  margin: auto;
-}
-@media (max-width: 1200px) {
-  footer .inner {
-    padding: 0px 3%;
-  }
+  padding: 0px 3%;
 }
 footer span {
   display: block;
@@ -975,19 +907,9 @@ footer span {
 footer .top {
   font-family: "europa", sans-serif;
   float: right;
-  display: block;
-  padding: 10px;
-  background: transparent;
-  line-height: 1;
-  text-align: center;
-  width: 40px;
-  height: 40px;
   color: #111;
-  border: 2px solid #111;
   font-weight: 800;
-  margin-top: 30px;
 }
 footer .top:hover {
-  background: #0056f4;
-  color: #fff;
+  color: #444;
 }

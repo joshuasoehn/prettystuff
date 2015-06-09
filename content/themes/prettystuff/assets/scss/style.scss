@@ -7,7 +7,7 @@ $skolar: "skolar", serif;
 @mixin vertical-align {
 	position: relative;
 	top: 50%;
-	transform: translateY(-50%); 
+	transform: translateY(-50%);
 }
 
 * {
@@ -15,7 +15,7 @@ $skolar: "skolar", serif;
 	padding: 0;
 	border: 0;
 	font: inherit;
-	vertical-align: baseline; 
+	vertical-align: baseline;
 	box-sizing: border-box;
 }
 
@@ -32,6 +32,7 @@ body {
 	font-size: 18px;
 	color: #333;
 	overflow-x: hidden;
+	background: #eee;
 	margin-bottom: 110px;
 }
 
@@ -135,7 +136,7 @@ ul {
 		transition: all .4s ease;
 	}
 	&:hover {
-		background: blue;
+		background: #888;
 		color: #fff;
 		&::after {
 			padding-left: 20px;
@@ -184,83 +185,29 @@ ul {
   margin-top: 20px;
 }
 
-.menu-toggle {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-	background: #fff;
-	width: 40px;
-	height: 40px;
-	padding: 0 11px;
-	outline: none;
-	cursor: pointer;
-	margin: 0;
-	z-index: 11111;
-  @media (min-width: 800px) {
-    display: none;
-  }
-
-	span,
-	span:before,
-	span:after {
-		position: relative;
-		display: block;
-		background: #111;
-		width: 100%;
-		height: 2px;
-	}
-
-	span:before,
-	span:after {
-		position: absolute;
-		left: 0;
-		content: "";
-	}
-
-	span:before { margin-top: -6px; }
-	span:after { margin-top: 6px; }
-}
-
 header {
 	width: 100%;
 	padding: 60px 0;
 	font-family: $headlines;
 	font-weight: 600;
 	overflow: hidden;
-	@media (max-width: 1250px) {
-    padding: 60px 3%;
-	}
-
-	@media (max-width: 800px) {
-    padding: 60px 6%;
-	}
 
 	.inner {
-		max-width: 1200px;
+		padding: 0 3%;
 		margin: 0 auto;
 	}
 
 	.logo {
-		margin-right: 10px;
-		float: left;
-		position: relative;
-		:after {
-			z-index: -1;
-			border-radius: 50%;
-			transform: scale(0);
-			content: '';
-			width: 55px;
-			height: 55px;
-			top: 0;
-			left: 0;
-			background: blue;
-			position: absolute;
-		}
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 55px;
+		margin: auto;
 		img {
 		width: 55px;
 			@media (max-width: 800px) {
-			width: 45px; 	
-			}		
+			width: 45px;
+			}
 		}
 		& a img:hover {
 			cursor: pointer;
@@ -275,8 +222,10 @@ header {
 			box-sizing: border-box;
 			width: 30%;
 			float: right;
-			@media (max-width: 800px) {
-				width: 50%;
+			@media (max-width: 600px) {
+				&.social {
+					display: none;
+				}
 			}
 		}
 		a {
@@ -292,8 +241,7 @@ header {
     		text-align: right;
 			}
 			&:hover, &.active {
-				color: blue;
-				text-decoration: line-through;
+				text-decoration: underline;
 			}
 		}
 	}
@@ -303,7 +251,6 @@ header {
 
 .site {
 	margin: 0 auto;
-	max-width: 1200px;
 	overflow: hidden;
 	z-index: 2;
 	transform: none;
@@ -314,16 +261,13 @@ header {
 	}
 }
 
-.pull-right {
-	transform: translateX(250px);
-}
 
 .wrapper-inner {
 	padding: 80px 8% 0;
 	overflow: hidden;
-	@media (max-width: 800px) { 
+	@media (max-width: 800px) {
 		padding: 60px 4% 0;
-	}    
+	}
 
 	h1 {
 		margin: 0;
@@ -336,9 +280,7 @@ header {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	@media (max-width: 1250px) {
-    padding: 0 3%;
-	}
+  padding: 0 3%;
 	@media (max-width: 800px) {
     padding: 0 6%;
 	}
@@ -350,7 +292,7 @@ header {
 
 .grid article {
 	width: 30%;
-	margin-bottom: 6%; 
+	margin-bottom: 6%;
 
 	@media (max-width: 650px) {
 		width: 100%;
@@ -366,10 +308,6 @@ header {
     text-transform: none;
 		white-space: nowrap;
 		overflow: hidden;
-	}
-
-	a:hover {
-		color: blue;
 	}
 
 	.excerpt {
@@ -405,7 +343,11 @@ header {
 
 }
 
-.single-post, .page {
+.post-template .site {
+	background: #fff;
+}
+
+.single-post {
 	a img:hover {
 		cursor: zoom-in;
 	}
@@ -419,6 +361,7 @@ header {
 article.page {
 	box-sizing: border-box;
 	max-width: 650px;
+	margin: 20px auto 0;
 	h1 {
 		text-align: left;
 	}
@@ -484,11 +427,11 @@ article.page {
 }
 
 .title-hero.next {
-	margin: 100px auto 60px;
+	margin: 100px auto 0;
 	height: 300px;
 	transition: all .4s ease;
 	border: 0px solid #111;
-	background: url(../images/geometry.png) #f8f8f8;
+	background: #eee;
 	&:hover {
 	}
 	.post-title {
@@ -497,7 +440,6 @@ article.page {
 		color: #111;
 		transition: all .4s ease;
 		&:hover {
-			color: blue;
 		}
 	}
 
@@ -528,7 +470,7 @@ article.page {
 	font-size: 18px;
 	a:hover {
 		text-decoration: underline;
-		color: blue;
+		color: #000;
 	}
 }
 
@@ -633,7 +575,7 @@ article.page {
 
 	&:hover span:after {
 		width: 180px;
-	} 
+	}
 
 	&.twitter {
 		background: center center url(/content/images/twitter-bg.jpg);
@@ -661,14 +603,26 @@ article.page {
 	width: 100%;
 	text-align: center;
 
+	.page-number {
+		display: none;
+	}
+
 	a {
 		color: #111;
+		background: #fff;
+		padding: 15px;
+		font-size: 12px;
+		transition: all .4s ease;
+		&:hover {
+			background: #888;
+		}
 	}
 }
 
 
 
 footer {
+	font-family: $headlines;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -676,22 +630,15 @@ footer {
 	width: 100%;
 	box-sizing: border-box;
 	margin-top: 20px;
-	background: #fff;
-	line-height: 110px;
 	height: 110px;
+	line-height: 110px;
 	color: #888;
 	text-align: center;
 	font-size: 14px;
 	overflow: hidden;
 
 	.inner {
-		border-top: 2px solid #111;
-		max-width: 1200px;
-		margin: auto;
-		@media (max-width: 1200px) {
-			padding: 0px 3%;
-		}
-
+		padding: 0px 3%;
 	}
 
 	span {
@@ -702,24 +649,14 @@ footer {
     	font-size: 8px;
 		}
 	}
-	
+
 	.top {
 		font-family: $headlines;
 		float: right;
-		display: block;
-		padding: 10px;
-		background: transparent;
-		line-height: 1;
-		text-align: center;
-		width: 40px;
-		height: 40px;
 		color: #111;
-		border: 2px solid #111;
 		font-weight: 800;
-		margin-top: 30px;
 		&:hover {
-			background: #0056f4;
-			color: #fff;
+			color: #444;
 		}
 	}
 
