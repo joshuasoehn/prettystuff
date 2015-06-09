@@ -483,7 +483,7 @@ header .menu .col {
   width: 30%;
   float: right;
 }
-@media (max-width: 600px) {
+@media (max-width: 660px) {
   header .menu .col.social {
     display: none;
   }
