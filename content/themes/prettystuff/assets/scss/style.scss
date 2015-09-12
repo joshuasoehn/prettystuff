@@ -276,7 +276,7 @@ header {
 }
 
 .grid {
-	overflow: hidden;
+	padding-top: 5px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -293,16 +293,29 @@ header {
 .grid article {
 	width: 30%;
 	margin-bottom: 6%;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 4px;
+	box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+	transition: all .2s ease;
+
+	&:hover {
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.2);
+	}
 
 	@media (max-width: 650px) {
 		width: 100%;
 		margin-bottom: 40px;
 	}
 
+	.description {
+		padding: 20px;
+	}
+
 	h2 {
+		margin-top: 0;
 		font-size: 22px;
 		font-weight: 700;
-		margin-top: 15px;
 		margin-bottom: 5px;
 		text-overflow: ellipsis;
     text-transform: none;
@@ -315,6 +328,7 @@ header {
     line-height: 1.5;
     font-size: 18px;
     color: #666;
+    margin-bottom: 0;
     @media (max-width: 1000px) {
 			font-size: 16px;
 		}
@@ -412,6 +426,7 @@ article.page {
   }
 
   .tags {
+  	font-family: $headlines;
     border-top: 1px solid #fff;
     padding-top: 35px;
     color: #fff;
@@ -608,7 +623,8 @@ article.page {
 		font-size: 12px;
 		transition: all .4s ease;
 		&:hover {
-			background: #888;
+			background: #fff;
+			box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.2);
 		}
 	}
 }
@@ -636,8 +652,7 @@ footer {
 	}
 
 	span {
-		display: block;
-		float: left;
+		display: inline-block;
 		font-size: 14px;
 		@media (max-width: 750px) {
     	font-size: 8px;
@@ -645,8 +660,8 @@ footer {
 	}
 
 	.top {
+		margin-right: 25px;
 		font-family: $headlines;
-		float: right;
 		color: #111;
 		font-weight: 800;
 		&:hover {
