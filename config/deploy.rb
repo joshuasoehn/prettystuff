@@ -8,7 +8,7 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'joshuasoehn.de'
+set :domain, '107.170.160.187'
 set :deploy_to, '/var/www/prettystuff'
 set :repository, 'https://github.com/joshuasoehn/prettystuff.git'
 set :branch, 'master'

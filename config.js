@@ -16,8 +16,8 @@ config = {
              options: {
                   service: 'Mailgun',
                   auth: {
-                      user: 'postmaster@mg.prettystuff.io', // mailgun username
-                      pass: '$MG_PW'  // mailgun password
+                      user: 'postmaster@sandbox1510cf735e694e1ca81a58173609f5d3.mailgun.org', // mailgun username
+                      pass: 'fe9d149c7c03df5143cfa2f12391712e'  // mailgun password
                   }
               }
 	},
