@@ -455,6 +455,7 @@ header .inner {
 }
 header .logo {
   position: absolute;
+  top: 50px;
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
@@ -474,37 +475,33 @@ header .logo a img:hover {
   cursor: pointer;
 }
 header .menu {
-  width: 60%;
-  float: right;
   font-weight: 300;
 }
-header .menu .col {
-  box-sizing: border-box;
-  width: 30%;
+header .menu .col-menu {
+  float: left;
+}
+header .menu .col-menu a {
+  margin-right: 30px;
+}
+header .menu .col-social {
   float: right;
 }
-@media (max-width: 660px) {
-  header .menu .col.social {
-    display: none;
-  }
+header .menu .col-social a {
+  margin-left: 30px;
 }
 header .menu a {
   color: #666;
-  text-align: right;
-  display: block;
-  margin-bottom: 10px;
   font-weight: 600;
   font-size: 16px;
 }
 @media (max-width: 800px) {
   header .menu a {
     font-size: 14px;
-    margin-bottom: 8px;
     text-align: right;
   }
 }
 header .menu a:hover, header .menu a.active {
-  text-decoration: underline;
+  color: #000;
 }
 
 .site {
