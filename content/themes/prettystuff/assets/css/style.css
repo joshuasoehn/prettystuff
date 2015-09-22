@@ -443,14 +443,19 @@ ul {
 }
 
 header {
-  width: 100%;
-  padding: 60px 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 60px 3%;
   font-family: "europa", sans-serif;
   font-weight: 600;
   overflow: hidden;
 }
+@media (max-width: 800px) {
+  header {
+    padding: 60px 6%;
+  }
+}
 header .inner {
-  padding: 0 3%;
   margin: 0 auto;
 }
 header .logo {
@@ -467,8 +472,12 @@ header .logo img {
   width: 55px;
 }
 @media (max-width: 800px) {
+  header .logo {
+    width: 40px;
+    top: 55px;
+  }
   header .logo img {
-    width: 45px;
+    width: 40px;
   }
 }
 header .logo a img:hover {
@@ -496,8 +505,7 @@ header .menu a {
 }
 @media (max-width: 800px) {
   header .menu a {
-    font-size: 14px;
-    text-align: right;
+    font-size: 12px;
   }
 }
 header .menu a:hover, header .menu a.active {
@@ -522,6 +530,7 @@ header .menu a:hover, header .menu a.active {
 }
 
 .wrapper-inner {
+  max-width: 1240px;
   padding: 80px 8% 0;
   overflow: hidden;
 }
@@ -535,6 +544,9 @@ header .menu a:hover, header .menu a.active {
 }
 
 .grid {
+  margin: auto;
+  max-width: 1240px;
+  padding: 0 3%;
   padding-top: 5px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -547,7 +559,6 @@ header .menu a:hover, header .menu a.active {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 3%;
 }
 @media (max-width: 800px) {
   .grid {
@@ -571,7 +582,7 @@ header .menu a:hover, header .menu a.active {
 .grid article:hover {
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
 }
-@media (max-width: 650px) {
+@media (max-width: 850px) {
   .grid article {
     width: 100%;
     margin-bottom: 40px;
@@ -637,11 +648,13 @@ header .menu a:hover, header .menu a.active {
 
 article.page {
   box-sizing: border-box;
-  max-width: 650px;
-  margin: 20px auto 0;
+  max-width: 1240px;
+  margin: 40px auto 0;
+  padding: 0 3%;
 }
-article.page h1 {
-  text-align: left;
+article.page p {
+  max-width: 800px;
+  margin: 0 auto 20px;
 }
 
 .title-hero {
@@ -752,6 +765,7 @@ article.page h1 {
   width: 100%;
   overflow: hidden;
   margin-top: 40px;
+  margin-bottom: 60px;
 }
 .author-wrapper p {
   display: none;
@@ -760,10 +774,10 @@ article.page h1 {
 .author {
   overflow: hidden;
   float: left;
-  width: 48%;
-  margin-right: 2%;
+  width: 33.333333%;
   position: relative;
   background: #000;
+  text-align: center;
 }
 .author:nth-child(3n) {
   margin-right: 0;
@@ -783,6 +797,7 @@ article.page h1 {
   margin-right: 30px;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
+  opacity: .8;
 }
 .author .desc {
   width: 100%;
@@ -790,7 +805,7 @@ article.page h1 {
   z-index: 9999;
   color: #fff;
   bottom: 20px;
-  left: 20px;
+  left: 0px;
 }
 .author .desc span a {
   font-family: "europa", sans-serif;

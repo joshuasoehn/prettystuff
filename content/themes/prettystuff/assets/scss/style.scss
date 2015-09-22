@@ -186,14 +186,17 @@ ul {
 }
 
 header {
-	width: 100%;
-	padding: 60px 0;
+	max-width: 1240px;
+	margin: 0 auto;
+	padding: 60px 3%;
 	font-family: $headlines;
 	font-weight: 600;
 	overflow: hidden;
+	@media (max-width: 800px) {
+		padding: 60px 6%;
+	}
 
 	.inner {
-		padding: 0 3%;
 		margin: 0 auto;
 	}
 
@@ -206,8 +209,12 @@ header {
 		margin: auto;
 		img {
 		width: 55px;
-			@media (max-width: 800px) {
-			width: 45px;
+		}
+		@media (max-width: 800px) {
+			width: 40px;
+			top: 55px;
+			img {
+				width: 40px;
 			}
 		}
 		& a img:hover {
@@ -234,8 +241,7 @@ header {
 			font-weight: 600;
 			font-size: 16px;
 			@media (max-width: 800px) {
-				font-size: 14px;
-    		text-align: right;
+				font-size: 12px;
 			}
 			&:hover, &.active {
 				color: #000;
@@ -260,6 +266,7 @@ header {
 
 
 .wrapper-inner {
+	max-width: 1240px;
 	padding: 80px 8% 0;
 	overflow: hidden;
 	@media (max-width: 800px) {
@@ -273,11 +280,13 @@ header {
 }
 
 .grid {
+	margin: auto;
+	max-width: 1240px;
+	padding: 0 3%;
 	padding-top: 5px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-  padding: 0 3%;
 	@media (max-width: 800px) {
     padding: 0 6%;
 	}
@@ -300,7 +309,7 @@ header {
 		box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.2);
 	}
 
-	@media (max-width: 650px) {
+	@media (max-width: 850px) {
 		width: 100%;
 		margin-bottom: 40px;
 	}
@@ -371,10 +380,12 @@ header {
 
 article.page {
 	box-sizing: border-box;
-	max-width: 650px;
-	margin: 20px auto 0;
-	h1 {
-		text-align: left;
+	max-width: 1240px;
+	margin: 40px auto 0;
+	padding: 0 3%;
+	p {
+		max-width: 800px;
+		margin: 0 auto 20px;
 	}
 }
 
@@ -484,6 +495,7 @@ article.page {
 	width: 100%;
 	overflow: hidden;
 	margin-top: 40px;
+	margin-bottom: 60px;
 	p {
 		display: none; // I know this is ugly
 	}
@@ -492,10 +504,10 @@ article.page {
 .author {
 	overflow: hidden;
 	float: left;
-	width: 48%;
-	margin-right: 2%;
+	width: 33.333333%;
 	position: relative;
 	background: #000;
+	text-align: center;
 	&:nth-child(3n) {
 		margin-right: 0;
 	}
@@ -512,6 +524,7 @@ article.page {
 		margin-top: 0px;
 		margin-right: 30px;
 		transition: all .4s ease;
+		opacity: .8;
 	}
 
 	.desc {
@@ -520,7 +533,7 @@ article.page {
 		z-index: 9999;
 		color: #fff;
 		bottom: 20px;
-		left: 20px;
+		left: 0px;
 
 
 	span a {
