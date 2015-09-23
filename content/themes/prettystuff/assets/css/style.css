@@ -492,18 +492,28 @@ header .menu .col-menu {
 header .menu .col-menu a {
   margin-right: 30px;
 }
+@media (max-width: 600px) {
+  header .menu .col-menu a {
+    margin-right: 15px;
+  }
+}
 header .menu .col-social {
   float: right;
 }
 header .menu .col-social a {
   margin-left: 30px;
 }
+@media (max-width: 600px) {
+  header .menu .col-social a {
+    margin-left: 15px;
+  }
+}
 header .menu a {
   color: #666;
   font-weight: 600;
   font-size: 16px;
 }
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   header .menu a {
     font-size: 12px;
   }
