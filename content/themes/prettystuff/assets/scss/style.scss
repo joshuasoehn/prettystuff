@@ -22,8 +22,6 @@ $skolar: "skolar", serif;
 html {
 	-webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  position: relative;
-  min-height: 100%;
 }
 
 body {
@@ -32,7 +30,6 @@ body {
 	color: #333;
 	overflow-x: hidden;
 	background: #eee;
-	margin-bottom: 110px;
 }
 
 a {
@@ -199,59 +196,51 @@ header {
 		margin: 0 auto;
 	}
 
+	.desc {
+		font-family: $skolar;
+		font-weight: 300;
+		@media (max-width: 700px) {
+			display: none;
+		}
+	}
+
 	.logo {
-		position: absolute;
-		top: 50px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 55px;
-		margin: auto;
+		width: 140px;
 		img {
-		width: 55px;
+			width: 45px;
 		}
 		@media (max-width: 800px) {
 			width: 40px;
-			top: 55px;
 			img {
 				width: 40px;
 			}
 		}
-		& a img:hover {
+		& a{
+			margin-left: 0;
 			cursor: pointer;
 		}
 	}
 
 	.menu {
-		font-weight: 300;
-		.col-menu {
-			float: left;
-			a {
-				margin-right: 30px;
-				@media (max-width: 600px) {
-					margin-right: 15px;
-				}
-			}
-			}
-		.col-menu-right {
-			float: right;
-			a {
-				margin-left: 30px;
-				@media (max-width: 600px) {
-					margin-left: 15px;
-				}
-			}
-			}
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		a {
 			color: #666;
 			font-weight: 600;
 			font-size: 16px;
 			@media (max-width: 600px) {
-				font-size: 12px;
+				font-size: 14px;
 			}
 			&:hover, &.active {
 				color: #000;
 			}
 		}
+
+	.col-menu a {
+		margin-left: 15px;
+	}
+
 	}
 
 }
@@ -647,26 +636,13 @@ article.page {
 
 
 footer {
+	padding: 40px 0;
 	font-family: $headlines;
-
-	left: 0;
-	clear: both;
 	width: 100%;
 	box-sizing: border-box;
-	margin-top: 20px;
-	height: 110px;
-	line-height: 110px;
 	color: #888;
 	text-align: center;
 	font-size: 14px;
-	overflow: hidden;
-	@media (max-width: 750px) {
-		height: auto;
-		position: relative;
-		line-height: 1;
-		position: absolute;
-		bottom: 20px;
-	}
 
 	.inner {
 		padding: 0px 3%;

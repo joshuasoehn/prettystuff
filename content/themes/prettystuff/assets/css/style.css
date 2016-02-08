@@ -274,8 +274,6 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  position: relative;
-  min-height: 100%;
 }
 
 body {
@@ -284,7 +282,6 @@ body {
   color: #333;
   overflow-x: hidden;
   background: #eee;
-  margin-bottom: 110px;
 }
 
 a {
@@ -458,55 +455,46 @@ header {
 header .inner {
   margin: 0 auto;
 }
+header .desc {
+  font-family: "skolar", serif;
+  font-weight: 300;
+}
+@media (max-width: 700px) {
+  header .desc {
+    display: none;
+  }
+}
 header .logo {
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-  width: 55px;
-  margin: auto;
+  width: 140px;
 }
 header .logo img {
-  width: 55px;
+  width: 45px;
 }
 @media (max-width: 800px) {
   header .logo {
     width: 40px;
-    top: 55px;
   }
   header .logo img {
     width: 40px;
   }
 }
-header .logo a img:hover {
+header .logo a {
+  margin-left: 0;
   cursor: pointer;
 }
 header .menu {
-  font-weight: 300;
-}
-header .menu .col-menu {
-  float: left;
-}
-header .menu .col-menu a {
-  margin-right: 30px;
-}
-@media (max-width: 600px) {
-  header .menu .col-menu a {
-    margin-right: 15px;
-  }
-}
-header .menu .col-menu-right {
-  float: right;
-}
-header .menu .col-menu-right a {
-  margin-left: 30px;
-}
-@media (max-width: 600px) {
-  header .menu .col-menu-right a {
-    margin-left: 15px;
-  }
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 header .menu a {
   color: #666;
@@ -515,11 +503,14 @@ header .menu a {
 }
 @media (max-width: 600px) {
   header .menu a {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 header .menu a:hover, header .menu a.active {
   color: #000;
+}
+header .menu .col-menu a {
+  margin-left: 15px;
 }
 
 .site {
@@ -911,27 +902,13 @@ article.page p {
 }
 
 footer {
+  padding: 40px 0;
   font-family: "europa", sans-serif;
-  left: 0;
-  clear: both;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 20px;
-  height: 110px;
-  line-height: 110px;
   color: #888;
   text-align: center;
   font-size: 14px;
-  overflow: hidden;
-}
-@media (max-width: 750px) {
-  footer {
-    height: auto;
-    position: relative;
-    line-height: 1;
-    position: absolute;
-    bottom: 20px;
-  }
 }
 footer .inner {
   padding: 0px 3%;
