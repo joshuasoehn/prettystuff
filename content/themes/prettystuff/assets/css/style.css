@@ -296,7 +296,7 @@ p {
   font-weight: 500;
 }
 p a {
-  border-bottom: 1px dotted #ccc;
+  color: #111;
 }
 p a:hover {
   color: #0056f4;
@@ -459,7 +459,7 @@ header .desc {
   font-family: "skolar", serif;
   font-weight: 300;
 }
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   header .desc {
     display: none;
   }
