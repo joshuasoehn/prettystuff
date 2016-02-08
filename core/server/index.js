@@ -7,7 +7,6 @@ var express     = require('express'),
     compress    = require('compression'),
     fs          = require('fs'),
     uuid        = require('node-uuid'),
-    _           = require('lodash'),
     Promise     = require('bluebird'),
     i18n        = require('./i18n'),
 
@@ -24,6 +23,7 @@ var express     = require('express'),
     sitemap     = require('./data/xml/sitemap'),
     xmlrpc      = require('./data/xml/xmlrpc'),
     GhostServer = require('./ghost-server'),
+    validateThemes = require('./utils/validate-themes'),
 
     dbHash;
 
@@ -64,9 +64,8 @@ function builtFilesExist() {
     }
 
     function checkExist(fileName) {
-        var errorMessage = 'Javascript files have not been built.',
-            errorHelp = '\nPlease read the getting started instructions at:' +
-                        '\nhttps://github.com/TryGhost/Ghost#getting-started';
+        var errorMessage = i18n.t('errors.index.javascriptFilesNotBuilt.error'),
+            errorHelp = i18n.t('errors.index.javascriptFilesNotBuilt.help', {link: '\nhttps://github.com/TryGhost/Ghost#getting-started'});
 
         return new Promise(function (resolve, reject) {
             fs.stat(fileName, function (statErr) {
@@ -102,9 +101,9 @@ function initNotifications() {
         api.notifications.add({notifications: [{
             type: 'info',
             message: [
-                'Ghost is attempting to use a direct method to send e-mail.',
-                'It is recommended that you explicitly configure an e-mail service.',
-                'See <a href=\'http://support.ghost.org/mail\' target=\'_blank\'>http://support.ghost.org/mail</a> for instructions'
+                i18n.t('warnings.index.usingDirectMethodToSendEmail'),
+                i18n.t('common.seeLinkForInstructions',
+                       {link: '<a href=\'http://support.ghost.org/mail\' target=\'_blank\'>http://support.ghost.org/mail</a>'})
             ].join(' ')
         }]}, {context: {internal: true}});
     }
@@ -112,8 +111,9 @@ function initNotifications() {
         api.notifications.add({notifications: [{
             type: 'warn',
             message: [
-                'Ghost is currently unable to send e-mail.',
-                'See <a href=\'http://support.ghost.org/mail\' target=\'_blank\'>http://support.ghost.org/mail</a> for instructions'
+                i18n.t('warnings.index.unableToSendEmail'),
+                i18n.t('common.seeLinkForInstructions',
+                       {link: '<a href=\'http://support.ghost.org/mail\' target=\'_blank\'>http://support.ghost.org/mail</a>'})
             ].join(' ')
         }]}, {context: {internal: true}});
     }
@@ -131,6 +131,9 @@ function init(options) {
     // The server and its dependencies require a populated config
     // It returns a promise that is resolved when the application
     // has finished starting up.
+
+    // Initialize Internationalization
+    i18n.init();
 
     // Load our config.js file from the local file system.
     return config.load(options.config).then(function () {
@@ -170,15 +173,12 @@ function init(options) {
     }).then(function () {
         var adminHbs = hbs.create();
 
-        // Initialize Internationalization
-        i18n.init();
-
         // Output necessary notifications on init
         initNotifications();
         // ##Configuration
 
         // return the correct mime type for woff files
-        express['static'].mime.define({'application/font-woff': ['woff']});
+        express.static.mime.define({'application/font-woff': ['woff']});
 
         // enabled gzip compression by default
         if (config.server.compress !== false) {
@@ -200,13 +200,17 @@ function init(options) {
         middleware(blogApp, adminApp);
 
         // Log all theme errors and warnings
-        _.each(config.paths.availableThemes._messages.errors, function (error) {
-            errors.logError(error.message, error.context, error.help);
-        });
+        validateThemes(config.paths.themePath)
+            .catch(function (result) {
+                // TODO: change `result` to something better
+                result.errors.forEach(function (err) {
+                    errors.logError(err.message, err.context, err.help);
+                });
 
-        _.each(config.paths.availableThemes._messages.warns, function (warn) {
-            errors.logWarn(warn.message, warn.context, warn.help);
-        });
+                result.warnings.forEach(function (warn) {
+                    errors.logWarn(warn.message, warn.context, warn.help);
+                });
+            });
 
         return new GhostServer(blogApp);
     });

@@ -1302,18 +1302,15 @@ img {
 /* Forms
 /* ---------------------------------------------------------- */
 
-form * {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
 form label {
   display: block;
   color: #242628;
   font-size: 1.3rem;
   font-weight: bold;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 form .word-count {
@@ -1325,6 +1322,10 @@ fieldset {
   margin: 0 0 3em 0;
   padding: 0;
   border: none;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 legend {
@@ -1335,6 +1336,10 @@ legend {
   color: #b1b1b1;
   font-size: 1.2em;
   line-height: 2.0em;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 input {
@@ -1344,7 +1349,7 @@ input {
   user-select: text;
 }
 
-.form-group.error .response {
+.error .response {
   color: #e25440;
 }
 
@@ -1356,12 +1361,21 @@ input {
   margin-bottom: 1.6em;
   max-width: 500px;
   width: 100%;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .form-group p {
   margin: 4px 0 0 0;
   color: #b1b1b1;
   font-size: 1.3rem;
+}
+
+.form-group h3 {
+  margin-bottom: 1.6em;
+  font-size: 1.5rem;
 }
 
 .form-group label {
@@ -1425,12 +1439,13 @@ select {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  cursor: pointer;
   transition: border-color 0.15s linear;
   -webkit-appearance: none;
 }
 
 .gh-input.error,
-.form-group.error .gh-input,
+.error .gh-input,
 .gh-select.error,
 select.error {
   border-color: #e25440;
@@ -1465,17 +1480,19 @@ textarea {
 .for-checkbox label {
   display: block;
   padding-bottom: 4px;
+  cursor: pointer;
 }
 
 .for-radio label p,
 .for-checkbox label p {
+  overflow: auto;
   color: #000;
   font-weight: normal;
 }
 
-.for-radio label:hover input:not(:checked) + .input-toggle-component,
-.for-checkbox label:hover input:not(:checked) + .input-toggle-component {
-  border-color: #dfe1e3;
+.for-radio label:hover p,
+.for-checkbox label:hover p {
+  color: #7d878a;
 }
 
 .for-radio input,
@@ -1500,11 +1517,9 @@ textarea {
   background: #f7f7f7;
 }
 
-.for-radio p,
-.for-checkbox p {
-  color: #b3b2a8;
-  white-space: nowrap;
-  font-weight: normal;
+.for-checkbox label:hover input:not(:checked) + .input-toggle-component,
+.for-radio label:hover input:not(:checked) + .input-toggle-component {
+  border-color: #e2edf2;
 }
 
 .for-checkbox .input-toggle-component {
@@ -2138,47 +2153,25 @@ table td,
 /* Modals
 /* ---------------------------------------------------------- */
 
-/* Full screen container
+/* Fullscreen Modal
 /* ---------------------------------------------------------- */
 
-.modal-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1040;
-  display: none;
-  overflow-x: auto;
-  overflow-y: scroll;
-  padding-right: 10px;
-  padding-left: 10px;
-  transition: all 0.15s linear 0s;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+.fullscreen-modal-liquid-target {
+  overflow-y: auto;
+  height: 100vh;
 }
 
-.modal-background {
+.fullscreen-modal-background {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1030;
-  display: none;
+  z-index: 0;
   background: rgba(0, 0, 0, 0.6);
 }
 
-/* The modal
-/* ---------------------------------------------------------- */
-
-.modal,
-.modal-action {
-  right: auto;
-  left: 50%;
-  z-index: 1050;
-  margin-right: auto;
-  margin-left: auto;
+.fullscreen-modal {
   padding-top: 30px;
   padding-bottom: 30px;
   max-width: 550px;
@@ -2187,32 +2180,40 @@ table td,
 }
 
 @media (max-width: 900px) {
-  .modal,
-  .modal-action {
+  .fullscreen-modal {
     padding: 10px;
   }
 }
 
-.modal button,
-.modal-action button {
-  min-width: 100px;
+/* Modifiers
+/* ---------------------------------------------------------- */
+
+.fullscreen-modal-wide {
+  width: 550px;
 }
 
-.modal .image-uploader,
-.modal .pre-image-uploader,
-.modal-action .image-uploader,
-.modal-action .pre-image-uploader {
-  margin: 0;
+@media (max-width: 900px) {
+  .fullscreen-modal-wide {
+    width: 100%;
+  }
 }
 
-.modal-action {
+.fullscreen-modal-action {
   padding: 60px 0 30px;
 }
 
 @media (max-width: 900px) {
-  .modal-action {
+  .fullscreen-modal-action {
     padding: 30px 0;
   }
+}
+
+/* The modal
+/* ---------------------------------------------------------- */
+
+.fullscreen-modal .image-uploader,
+.fullscreen-modal .pre-image-uploader {
+  margin: 0;
 }
 
 /* Modal content
@@ -2291,6 +2292,7 @@ table td,
 
 .modal-footer button {
   margin-left: 8px;
+  min-width: 100px;
   text-align: center;
 }
 
@@ -2298,22 +2300,8 @@ table td,
   margin-left: 0;
 }
 
-/* Modifiers
+/* Content Modifiers
 /* ---------------------------------------------------------- */
-
-.modal-style-wide {
-  width: 550px;
-}
-
-@media (max-width: 900px) {
-  .modal-style-wide {
-    width: 100%;
-  }
-}
-
-.modal-style-centered {
-  text-align: center;
-}
 
 /* Login styles */
 
@@ -2355,32 +2343,6 @@ table td,
     -ms-flex: 1;
     flex: 1;
   }
-}
-
-/* Open States
-/* ---------------------------------------------------------- */
-
-.modal-container.open,
-.modal-container.open > .modal,
-.modal-container.open > .modal-action {
-  display: block;
-}
-
-.modal-background.open {
-  display: block;
-}
-
-/* Animations
-/* ---------------------------------------------------------- */
-
-.modal-container.fade-out {
-  -webkit-animation-duration: 0.08s;
-  animation-duration: 0.08s;
-}
-
-.modal-background.fade-out {
-  -webkit-animation-duration: 0.15s;
-  animation-duration: 0.15s;
 }
 
 /* Notifications
@@ -3304,6 +3266,7 @@ a.badge:focus {
   bottom: 0;
   z-index: 500;
   overflow: hidden;
+  max-width: 100%;
   width: 350px;
   border-left: #dfe1e3 1px solid;
   background: #fff;
@@ -3903,6 +3866,20 @@ a.badge:focus {
 /* Global Layout
 /* ---------------------------------------------------------- */
 
+/*
+  Ember's app container, set height so that .gh-app and .gh-viewport
+  don't need to use 100vh where bottom of screen gets covered by iOS menus
+  http://nicolas-hoizey.com/2015/02/viewport-height-is-taller-than-the-visible-part-of-the-document-in-some-mobile-browsers.html
+
+  TODO: Once we have routable components it should be possible to remove this
+  by moving the gh-app component functionality into the application component
+  which would remove the extra div that this targets.
+*/
+
+body > .ember-view:not(.liquid-target-container) {
+  height: 100%;
+}
+
 /* Main viewport, contains main content, and alerts */
 
 .gh-app {
@@ -3913,7 +3890,7 @@ a.badge:focus {
   -ms-flex-direction: column;
   flex-direction: column;
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
 }
 
 /* Content viewport, contains everything else */
@@ -3926,7 +3903,7 @@ a.badge:focus {
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
-  max-height: 100vh;
+  max-height: 100%;
 }
 
 .gh-main {
@@ -3938,6 +3915,12 @@ a.badge:focus {
   display: -ms-flexbox;
   display: flex;
   background: #fff;
+}
+
+/*  Flexbox fix. https://github.com/TryGhost/Ghost/issues/5804#issuecomment-141416812 */
+
+.gh-main > section {
+  width: 1px;
 }
 
 /* Global Nav
@@ -3974,6 +3957,7 @@ a.badge:focus {
   -ms-flex-align: center;
   align-items: center;
   padding: 15px;
+  cursor: pointer;
 }
 
 .gh-nav-menu i {
@@ -3982,10 +3966,11 @@ a.badge:focus {
   height: 11px;
   font-size: 11px;
   line-height: 11px;
+  transition: margin-top 0.2s ease;
 }
 
-.gh-nav-menu:hover {
-  cursor: pointer;
+.gh-nav-menu:hover i {
+  margin-top: 5px;
 }
 
 .gh-nav-menu-icon {
@@ -4570,7 +4555,7 @@ a.badge:focus {
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .gh-flow-head {
@@ -5035,6 +5020,7 @@ a.badge:focus {
 
 .gh-flow-content .gh-flow-faces {
   margin-bottom: 2vw;
+  width: 100%;
 }
 
 .gh-flow-content textarea {
@@ -5129,13 +5115,17 @@ a.badge:focus {
   letter-spacing: 0;
   font-size: 1.1rem;
   line-height: 1.2rem;
-  /* Needs white BG to hide ugly lastpass icon */
 }
 
 .forgotten-link:hover {
   border-left: #dae1e3 1px solid;
   color: rgb(30, 115, 190);
   text-decoration: none;
+}
+
+.forgotten-link:active {
+  box-shadow: none;
+  text-decoration: underline;
 }
 
 /* Content /ghost/
@@ -5334,7 +5324,6 @@ a.badge:focus {
   padding: 5%;
   word-break: break-word;
   -webkit-hyphens: auto;
-  -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
 }
@@ -5367,6 +5356,10 @@ a.badge:focus {
   padding-right: 0;
   border: none;
   font-size: 18px;
+}
+
+.content-preview .post-controls .post-edit:hover {
+  color: #242628;
 }
 
 .content-preview img {
@@ -5418,7 +5411,9 @@ a.badge:focus {
 
 /* This has to be a pseudo element to sit over the top of everything else in the content list */
 
-.content-list.keyboard-focused:before {
+.content-list.keyboard-focused:before,
+.tag-list-content.keyboard-focused:before,
+.tag-settings.keyboard-focused:before {
   content: "";
   position: absolute;
   top: 0;
@@ -5652,7 +5647,6 @@ a.badge:focus {
   padding: 19px 20px 37px 20px;
   word-break: break-word;
   -webkit-hyphens: auto;
-  -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
   cursor: default;
@@ -5870,11 +5864,12 @@ a.badge:focus {
 /* Markdown Help Icon + Modal
 /* ---------------------------------------------------------- */
 
-.markdown-help {
+.markdown-help-icon {
   font-size: 16px;
 }
 
-.markdown-help:hover {
+.markdown-help-icon:hover,
+.markdown-help-label:hover {
   cursor: help;
 }
 
@@ -5911,6 +5906,15 @@ a.badge:focus {
   align-items: center;
   margin-bottom: 10px;
   padding: 0 20px;
+}
+
+.gh-blognav-item--error {
+  margin-bottom: calc(1em + 10px);
+}
+
+.gh-blognav-item .response {
+  position: absolute;
+  margin-bottom: 0;
 }
 
 .gh-blognav-grab {
@@ -6637,70 +6641,6 @@ a.user-list-item {
 /* Tag Management /ghost/settings/tags/
 /* ---------------------------------------------------------- */
 
-/* Search
-/* ---------------------------------------------------------- */
-
-.tags-search {
-  position: relative;
-  display: inline-block;
-  margin-left: 7px;
-}
-
-.tags-search .btn {
-  position: relative;
-  padding-right: 10px;
-  padding-left: 10px;
-  transition: padding 0.3s ease-in-out;
-}
-
-.tags-search .btn.active {
-  box-shadow: none;
-}
-
-.tags-search .btn .icon-search:before {
-  font-size: 1.3rem;
-}
-
-.tags-search .tags-search-input {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  margin: 0;
-  padding: 7px 10px;
-  width: 0;
-  border: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-  pointer-events: none;
-}
-
-@media (max-width: 400px) {
-  .tags-search.opened .btn {
-    padding-left: 120px;
-  }
-
-  .tags-search.opened .tags-search-input {
-    width: 110px;
-  }
-}
-
-@media (min-width: 401px) {
-  .tags-search.opened .btn {
-    padding-left: 140px;
-  }
-
-  .tags-search.opened .tags-search-input {
-    width: 130px;
-  }
-}
-
-.tags-search.opened .tags-search-input {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 /* Tag
 /* ---------------------------------------------------------- */
 
@@ -6712,25 +6652,23 @@ a.user-list-item {
 }
 
 .settings-tag .tag-edit-button {
+  display: block;
   padding: 20px;
   width: calc(100% + 45px);
   text-align: left;
 }
 
-.settings-tag .tag-edit-button:hover,
-.settings-tag .tag-edit-button:focus,
-.settings-tag .tag-edit-button:active {
-  background: rgb(250, 250, 250);
-}
-
-.settings-tag:last-of-type:hover .tag-edit-button {
-  box-shadow: inset 0 -1px 0 #dfe1e3;
+.settings-tag .tag-edit-button.active {
+  border-left: 3px solid;
 }
 
 .settings-tag .label {
-  position: relative;
-  top: -2px;
-  margin-left: 2px;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 100%;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .settings-tag .label-alt {
@@ -6746,6 +6684,7 @@ a.user-list-item {
 .settings-tag .tag-description {
   margin: 0;
   color: rgb(195, 199, 203);
+  word-wrap: break-word;
   font-size: 13px;
 }
 
@@ -6755,6 +6694,82 @@ a.user-list-item {
   right: 12px;
   color: rgb(195, 199, 203);
   font-size: 16px;
+}
+
+/* Tag List (Left pane)
+/* ---------------------------------------------------------- */
+
+.tag-list {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  max-width: calc(100% - 350px);
+  width: 66%;
+  border-right: #dfe1e3 1px solid;
+  background: #fff;
+}
+
+@media (max-width: 600px) {
+  .tag-list {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .settings-tag .tag-edit-button.active {
+    border-left: none;
+  }
+}
+
+/* Tag Settings (Right pane)
+/* ---------------------------------------------------------- */
+
+.tag-settings {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 350px;
+  width: 34%;
+  border: none;
+  background: #fff;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.tag-settings .no-posts {
+  padding: 1em;
+}
+
+.tag-settings .no-posts h3 {
+  text-align: center;
+}
+
+.tag-settings .settings-menu-pane {
+  transition: -webkit-transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+  transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+}
+
+@media (max-width: 600px) {
+  .tag-settings {
+    min-width: 0;
+    width: 100%;
+    transition: -webkit-transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    -webkit-transform: translate3d(100%, 0px, 0px);
+    transform: translate3d(100%, 0px, 0px);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  .tag-settings-in {
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
+  }
 }
 
 /* Error /ghost/404/
