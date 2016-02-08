@@ -19,7 +19,6 @@ $skolar: "skolar", serif;
 	box-sizing: border-box;
 }
 
-
 html {
 	-webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -48,7 +47,7 @@ p {
 	font-weight: 500;
 
 	a {
-		text-decoration: underline;
+		border-bottom: 1px dotted #ccc;
 		&:hover {
 			color: #0056f4;
 		}
@@ -233,7 +232,7 @@ header {
 				}
 			}
 			}
-		.col-social {
+		.col-menu-right {
 			float: right;
 			a {
 				margin-left: 30px;
@@ -302,7 +301,7 @@ header {
 
 }
 
-.grid article {
+.grid .article {
 	width: 30%;
 	margin-bottom: 6%;
 	background: #fff;
@@ -649,8 +648,7 @@ article.page {
 
 footer {
 	font-family: $headlines;
-	position: absolute;
-	bottom: 0;
+
 	left: 0;
 	clear: both;
 	width: 100%;
@@ -662,6 +660,13 @@ footer {
 	text-align: center;
 	font-size: 14px;
 	overflow: hidden;
+	@media (max-width: 750px) {
+		height: auto;
+		position: relative;
+		line-height: 1;
+		position: absolute;
+		bottom: 20px;
+	}
 
 	.inner {
 		padding: 0px 3%;
@@ -670,18 +675,24 @@ footer {
 	span {
 		display: inline-block;
 		font-size: 14px;
+		margin-right: 25px;
 		@media (max-width: 750px) {
-    	font-size: 8px;
+    	display: block;
+    	margin: 20px 0 0;
 		}
 	}
 
-	.top {
+	a {
 		margin-right: 25px;
 		font-family: $headlines;
 		color: #111;
 		font-weight: 800;
 		&:hover {
 			color: #444;
+		}
+		@media (max-width: 750px) {
+    	display: block;
+    	margin: 20px 0 0;
 		}
 	}
 

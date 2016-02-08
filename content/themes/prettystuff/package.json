@@ -2,6 +2,6 @@
   "name": "PrettyStuff",
   "version": "1.0.0",
   "devDependencies": {
-    "gulp-livereload": "^2.1.1"
+    "gulp": "^3.9.0"
   }
 }

@@ -299,7 +299,7 @@ p {
   font-weight: 500;
 }
 p a {
-  text-decoration: underline;
+  border-bottom: 1px dotted #ccc;
 }
 p a:hover {
   color: #0056f4;
@@ -497,14 +497,14 @@ header .menu .col-menu a {
     margin-right: 15px;
   }
 }
-header .menu .col-social {
+header .menu .col-menu-right {
   float: right;
 }
-header .menu .col-social a {
+header .menu .col-menu-right a {
   margin-left: 30px;
 }
 @media (max-width: 600px) {
-  header .menu .col-social a {
+  header .menu .col-menu-right a {
     margin-left: 15px;
   }
 }
@@ -579,7 +579,7 @@ header .menu a:hover, header .menu a.active {
   margin-right: 0;
 }
 
-.grid article {
+.grid .article {
   width: 30%;
   margin-bottom: 6%;
   background: #fff;
@@ -589,19 +589,19 @@ header .menu a:hover, header .menu a.active {
   -webkit-transition: all .2s ease;
           transition: all .2s ease;
 }
-.grid article:hover {
+.grid .article:hover {
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
 }
 @media (max-width: 850px) {
-  .grid article {
+  .grid .article {
     width: 100%;
     margin-bottom: 40px;
   }
 }
-.grid article .description {
+.grid .article .description {
   padding: 20px;
 }
-.grid article h2 {
+.grid .article h2 {
   margin-top: 0;
   font-size: 22px;
   font-weight: 700;
@@ -611,7 +611,7 @@ header .menu a:hover, header .menu a.active {
   white-space: nowrap;
   overflow: hidden;
 }
-.grid article .excerpt {
+.grid .article .excerpt {
   margin-top: 0px;
   line-height: 1.5;
   font-size: 18px;
@@ -619,7 +619,7 @@ header .menu a:hover, header .menu a.active {
   margin-bottom: 0;
 }
 @media (max-width: 1000px) {
-  .grid article .excerpt {
+  .grid .article .excerpt {
     font-size: 16px;
   }
 }
@@ -912,8 +912,6 @@ article.page p {
 
 footer {
   font-family: "europa", sans-serif;
-  position: absolute;
-  bottom: 0;
   left: 0;
   clear: both;
   width: 100%;
@@ -926,24 +924,41 @@ footer {
   font-size: 14px;
   overflow: hidden;
 }
+@media (max-width: 750px) {
+  footer {
+    height: auto;
+    position: relative;
+    line-height: 1;
+    position: absolute;
+    bottom: 20px;
+  }
+}
 footer .inner {
   padding: 0px 3%;
 }
 footer span {
   display: inline-block;
   font-size: 14px;
+  margin-right: 25px;
 }
 @media (max-width: 750px) {
   footer span {
-    font-size: 8px;
+    display: block;
+    margin: 20px 0 0;
   }
 }
-footer .top {
+footer a {
   margin-right: 25px;
   font-family: "europa", sans-serif;
   color: #111;
   font-weight: 800;
 }
-footer .top:hover {
+footer a:hover {
   color: #444;
+}
+@media (max-width: 750px) {
+  footer a {
+    display: block;
+    margin: 20px 0 0;
+  }
 }
