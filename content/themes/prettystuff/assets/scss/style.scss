@@ -350,7 +350,6 @@ header {
 .thumbnail {
 	position: relative;
 	transition: opacity .4s ease;
-	cursor: pointer !important;
 	&:hover {
 		opacity: 1;
 	}
@@ -364,6 +363,7 @@ header {
 	img {
 		max-width: 100%;
 		background: #eee;
+		display: block;
 	}
 
 }

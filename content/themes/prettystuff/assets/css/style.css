@@ -630,7 +630,6 @@ header .menu .col-menu a {
   position: relative;
   -webkit-transition: opacity .4s ease;
           transition: opacity .4s ease;
-  cursor: pointer !important;
 }
 .thumbnail:hover {
   opacity: 1;
@@ -643,6 +642,7 @@ header .menu .col-menu a {
 .thumbnail img {
   max-width: 100%;
   background: #eee;
+  display: block;
 }
 
 .post-template .site {
