@@ -274,6 +274,11 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -moz-font-feature-settings: "liga=1, dlig=1";
+  -ms-font-feature-settings: "liga", "dlig";
+  -webkit-font-feature-settings: "liga", "dlig";
+  -o-font-feature-settings: "liga", "dlig";
+  font-feature-settings: "liga", "dlig";
 }
 
 body {
@@ -378,8 +383,8 @@ ul {
   font-weight: 600;
   letter-spacing: 2px;
   text-align: center;
-  -webkit-transition: all .4s ease;
-          transition: all .4s ease;
+  -webkit-transition: all 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
+          transition: all 0.3s cubic-bezier(0.2, 0.3, 0.25, 0.9);
 }
 .button::after {
   content: '→';
@@ -387,18 +392,24 @@ ul {
   padding-left: 15px;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
+  width: 20px;
+  display: inline-block;
 }
 .button:hover {
   background: #888;
   color: #fff;
 }
 .button:hover::after {
-  padding-left: 20px;
+  width: 30px;
 }
 @media (max-width: 600px) {
   .button {
     width: 100%;
   }
+}
+
+.post-content .button {
+  float: right;
 }
 
 .content img {
@@ -572,16 +583,16 @@ header .menu .col-menu a {
 
 .grid .article {
   width: 30%;
-  margin-bottom: 6%;
+  margin-bottom: 5%;
   background: #fff;
   overflow: hidden;
   border-radius: 4px;
-  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.2);
-  -webkit-transition: all .2s ease;
-          transition: all .2s ease;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.2s cubic-bezier(0.5, 0.1, 0, 1.2);
+          transition: all 0.2s cubic-bezier(0.5, 0.1, 0, 1.2);
 }
 .grid .article:hover {
-  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 850px) {
   .grid .article {
@@ -659,36 +670,21 @@ article.page p {
 }
 
 .title-hero {
-  height: 500px;
-  background-size: cover;
-  background-position: center;
+  padding: 140px 0;
   position: relative;
   text-align: center;
+  background: #eee;
 }
 @media (max-width: 800px) {
   .title-hero {
-    height: 300px;
+    padding: 60px 0 80px;
   }
 }
-.title-hero .darker {
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-}
-.title-hero .hero-inner {
-  width: 100%;
-  position: absolute;
-  top: 51%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
 .title-hero .post-title {
-  color: #fff;
-  font-size: 80px;
-  padding: 0 100px;
-  letter-spacing: 2px;
+  color: #000;
+  font-size: 120px;
   line-height: 1.2;
+  letter-spacing: 1px;
   margin-bottom: 55px;
   font-weight: 600;
 }
@@ -698,21 +694,14 @@ article.page p {
     font-size: 40px;
   }
 }
-.title-hero .post-title::after {
-  display: none;
-  background: #fff;
-  height: 6px;
-  margin-top: -15px;
-  width: 40px;
-}
 .title-hero .tags {
   font-family: "europa", sans-serif;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #111;
   padding-top: 35px;
-  color: #fff;
+  color: #111;
 }
 .title-hero .tags a {
-  color: #fff;
+  color: #111;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
 }
@@ -720,24 +709,26 @@ article.page p {
   text-decoration: underline;
 }
 
-.title-hero.next {
+.next-post {
+  text-align: center;
   margin: 100px auto 0;
   height: 350px;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
   border-top: 1px solid #eee;
+  padding-top: 100px;
 }
-.title-hero.next .post-title {
+.next-post .post-title {
   margin-bottom: 20px;
   line-height: 1.2;
   color: #111;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
 }
-.title-hero.next .post-title:hover {
+.next-post .post-title:hover {
   color: #888;
 }
-.title-hero.next span {
+.next-post span {
   display: inline-block;
   color: #888;
   padding-bottom: 10px;
@@ -746,14 +737,15 @@ article.page p {
 }
 
 .post-content {
-  margin-bottom: 60px;
+  overflow: hidden;
 }
 
 .post-meta {
   font-family: "europa", sans-serif;
   text-align: center;
-  padding-top: 40px;
-  border-top: 1px solid #ccc;
+  padding-top: 80px;
+  margin-top: -24px;
+  border-top: 1px solid #eee;
   color: #666;
   font-size: 18px;
 }
@@ -891,14 +883,14 @@ article.page p {
 .pagination a {
   color: #111;
   background: #fff;
-  padding: 15px;
+  padding: 20px 30px;
   font-size: 12px;
-  -webkit-transition: all .4s ease;
-          transition: all .4s ease;
+  -webkit-transition: all .2s ease;
+          transition: all .2s ease;
 }
 .pagination a:hover {
   background: #fff;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 footer {
@@ -911,7 +903,7 @@ footer {
   font-size: 14px;
 }
 footer .inner {
-  padding: 0px 3%;
+  padding: 0px 5%;
 }
 footer span {
   display: inline-block;

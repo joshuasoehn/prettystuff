@@ -2,12 +2,10 @@
 
 {{#post}}
 
-  <div class="title-hero" style="background-image: url({{image}})">
-    <div class="darker">
-      <div class="hero-inner">
-        <h1 class="post-title">{{title}}</h1>
-        <span class="tags">{{tags prefix=""}}</span>
-      </div>
+  <div class="title-hero">
+    <div class="hero-inner">
+      <h1 class="post-title">{{title}}</h1>
+      <span class="tags">{{tags prefix=""}}</span>
     </div>
   </div>
 
@@ -28,7 +26,7 @@
       by
       {{#author}}
       <span class="author-meta">
-          <a href="{{url}}">{{name}}</a>
+          {{name}}
       </span>
       {{/author}}
     </section>
@@ -38,11 +36,9 @@
   </main>
 
   {{#prev_post}}
-    <div class="title-hero next">
-        <div class="hero-inner">
-          <span class="small">Next post</span>
-          <a href="{{url}}"><h1 class="post-title">{{title}}</h1></a>
-        </div>
+    <div class="next-post">
+      <span class="small">Next post</span>
+      <a href="{{url}}"><h1 class="post-title">{{title}}</h1></a>
     </div>
   {{/prev_post}}
 
