@@ -9,7 +9,8 @@ var Promise         = require('bluebird'),
     utils           = require('./utils'),
     globalUtils     = require('../utils'),
     config          = require('../config'),
-    mail            = require('./mail'),
+    mail            = require('./../mail'),
+    apiMail         = require('./mail'),
     pipeline        = require('../utils/pipeline'),
     i18n            = require('../i18n'),
 
@@ -44,7 +45,7 @@ sendInviteEmail = function sendInviteEmail(user) {
 
         emailData.resetLink = baseUrl.replace(/\/$/, '') + '/ghost/signup/' + globalUtils.encodeBase64URLsafe(resetToken) + '/';
 
-        return mail.generateContent({data: emailData, template: 'invite-user'});
+        return mail.utils.generateContent({data: emailData, template: 'invite-user'});
     }).then(function (emailContent) {
         var payload = {
             mail: [{
@@ -58,7 +59,7 @@ sendInviteEmail = function sendInviteEmail(user) {
             }]
         };
 
-        return mail.send(payload, {context: {internal: true}});
+        return apiMail.send(payload, {context: {internal: true}});
     });
 };
 /**
@@ -361,7 +362,7 @@ users = {
     /**
      * ## Destroy
      * @param {{id, context}} options
-     * @returns {Promise<User>}
+     * @returns {Promise}
      */
     destroy: function destroy(options) {
         var tasks;
@@ -382,33 +383,22 @@ users = {
         }
 
         /**
-         * ### Model Query
+         * ### Delete User
          * Make the call to the Model layer
          * @param {Object} options
-         * @returns {Object} options
          */
-        function doQuery(options) {
-            return users.read(options).then(function (result) {
-                return dataProvider.Base.transaction(function (t) {
-                    options.transacting = t;
+        function deleteUser(options) {
+            return dataProvider.Base.transaction(function (t) {
+                options.transacting = t;
 
-                    Promise.all([
-                        dataProvider.Accesstoken.destroyByUser(options),
-                        dataProvider.Refreshtoken.destroyByUser(options),
-                        dataProvider.Post.destroyByAuthor(options)
-                    ]).then(function () {
-                        return dataProvider.User.destroy(options);
-                    }).then(function () {
-                        t.commit();
-                    }).catch(function (error) {
-                        t.rollback(error);
-                    });
-                }).then(function () {
-                    return result;
-                }, function (error) {
-                    return Promise.reject(new errors.InternalServerError(error));
-                });
-            }, function (error) {
+                return Promise.all([
+                    dataProvider.Accesstoken.destroyByUser(options),
+                    dataProvider.Refreshtoken.destroyByUser(options),
+                    dataProvider.Post.destroyByAuthor(options)
+                ]).then(function () {
+                    return dataProvider.User.destroy(options);
+                }).return(null);
+            }).catch(function (error) {
                 return errors.formatAndRejectAPIError(error);
             });
         }
@@ -418,7 +408,7 @@ users = {
             utils.validate(docName, {opts: utils.idDefaultOptions}),
             handlePermissions,
             utils.convertOptions(allowedIncludes),
-            doQuery
+            deleteUser
         ];
 
         // Pipeline calls each task passing the result of one to be the arguments for the next

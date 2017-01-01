@@ -3,8 +3,19 @@ var events  = require('events'),
     EventRegistry,
     EventRegistryInstance;
 
-EventRegistry = function () {};
+EventRegistry = function () {
+    events.EventEmitter.call(this);
+};
+
 util.inherits(EventRegistry, events.EventEmitter);
+
+EventRegistry.prototype.onMany = function (arr, onEvent) {
+    var self = this;
+
+    arr.forEach(function (eventName) {
+        self.on(eventName, onEvent);
+    });
+};
 
 EventRegistryInstance = new EventRegistry();
 EventRegistryInstance.setMaxListeners(100);

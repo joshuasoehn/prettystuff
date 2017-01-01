@@ -36,7 +36,7 @@ Basetoken = ghostBookshelf.Model.extend({
             .query('where', 'expires', '<', Date.now())
             .fetch(options)
             .then(function then(collection) {
-                collection.invokeThen('destroy', options);
+                return collection.invokeThen('destroy', options);
             });
     },
     /**
@@ -53,7 +53,7 @@ Basetoken = ghostBookshelf.Model.extend({
                 .query('where', 'user_id', '=', userId)
                 .fetch(options)
                 .then(function then(collection) {
-                    collection.invokeThen('destroy', options);
+                    return collection.invokeThen('destroy', options);
                 });
         }
 
@@ -68,17 +68,14 @@ Basetoken = ghostBookshelf.Model.extend({
         var token = options.token;
 
         options = this.filterOptions(options, 'destroyByUser');
+        options.require = true;
 
-        if (token) {
-            return ghostBookshelf.Collection.forge([], {model: this})
-                .query('where', 'token', '=', token)
-                .fetch(options)
-                .then(function then(collection) {
-                    collection.invokeThen('destroy', options);
-                });
-        }
-
-        return Promise.reject(new errors.NotFoundError(i18n.t('errors.models.base.token.tokenNotFound')));
+        return this.forge()
+            .query('where', 'token', '=', token)
+            .fetch(options)
+            .then(function then(model) {
+                return model.destroy(options);
+            });
     }
 });
 

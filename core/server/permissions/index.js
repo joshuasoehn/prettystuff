@@ -16,7 +16,7 @@ var _                   = require('lodash'),
 function hasActionsMap() {
     // Just need to find one key in the actionsMap
 
-    return _.any(exported.actionsMap, function (val, key) {
+    return _.some(exported.actionsMap, function (val, key) {
         /*jslint unparam:true*/
         return Object.hasOwnProperty.call(exported.actionsMap, key);
     });
@@ -25,11 +25,17 @@ function hasActionsMap() {
 function parseContext(context) {
     // Parse what's passed to canThis.beginCheck for standard user and app scopes
     var parsed = {
-            internal: false,
-            user: null,
-            app: null,
-            public: true
-        };
+        internal: false,
+        external: false,
+        user: null,
+        app: null,
+        public: true
+    };
+
+    if (context && (context === 'external' || context.external)) {
+        parsed.external = true;
+        parsed.public = false;
+    }
 
     if (context && (context === 'internal' || context.internal)) {
         parsed.internal = true;
@@ -117,8 +123,10 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
         role:       Models.Role,
         user:       Models.User,
         permission: Models.Permission,
-        setting:    Models.Settings
+        setting:    Models.Settings,
+        subscriber: Models.Subscriber
     };
+
     // Iterate through the object types, i.e. ['post', 'tag', 'user']
     return _.reduce(objTypes, function (objTypeHandlers, objType) {
         // Grab the TargetModel through the objectTypeModelMap
@@ -171,16 +179,16 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
                         return modelId === permObjId;
                     };
 
-                if (loadedPermissions.user && _.any(loadedPermissions.user.roles, {name: 'Owner'})) {
+                if (loadedPermissions.user && _.some(loadedPermissions.user.roles, {name: 'Owner'})) {
                     hasUserPermission = true;
                 } else if (!_.isEmpty(userPermissions)) {
-                    hasUserPermission = _.any(userPermissions, checkPermission);
+                    hasUserPermission = _.some(userPermissions, checkPermission);
                 }
 
                 // Check app permissions if they were passed
                 hasAppPermission = true;
                 if (!_.isNull(appPermissions)) {
-                    hasAppPermission = _.any(appPermissions, checkPermission);
+                    hasAppPermission = _.some(appPermissions, checkPermission);
                 }
 
                 // Offer a chance for the TargetModel to override the results
@@ -265,9 +273,11 @@ canThis = function (context) {
     return result.beginCheck(context);
 };
 
-init = refresh = function () {
+init = refresh = function (options) {
+    options = options || {};
+
     // Load all the permissions
-    return Models.Permission.findAll().then(function (perms) {
+    return Models.Permission.findAll(options).then(function (perms) {
         var seenActions = {};
 
         exported.actionsMap = {};

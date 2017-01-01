@@ -1,10 +1,26 @@
 var ghostBookshelf = require('./base'),
+    crypto         = require('crypto'),
+    uuid           = require('node-uuid'),
 
     Client,
     Clients;
 
 Client = ghostBookshelf.Model.extend({
+
     tableName: 'clients',
+
+    defaults: function defaults() {
+        var env = process.env.NODE_ENV,
+            secret = env.indexOf('testing') !== 0 ? crypto.randomBytes(6).toString('hex') : 'not_available';
+
+        return {
+            uuid: uuid.v4(),
+            secret: secret,
+            status: 'development',
+            type: 'ua'
+        };
+    },
+
     trustedDomains: function trustedDomains() {
         return this.hasMany('ClientTrustedDomain', 'client_id');
     }
@@ -20,7 +36,7 @@ Client = ghostBookshelf.Model.extend({
             // whitelists for the `options` hash argument on methods, by method name.
             // these are the only options that can be passed to Bookshelf / Knex.
             validOptions = {
-                findOne: ['withRelated']
+                findOne: ['columns', 'withRelated']
             };
 
         if (validOptions[methodName]) {

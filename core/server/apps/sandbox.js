@@ -32,13 +32,19 @@ AppSandbox.prototype.loadModule = function loadModuleSandboxed(modulePath) {
     // Instantiate a Node Module class
     currentModule = new Module(modulePath, parentModulePath);
 
+    if (this.opts.internal) {
+        currentModule.load(currentModule.id);
+
+        return currentModule.exports;
+    }
+
     // Grab the original modules require function
     nodeRequire = currentModule.require;
 
     // Set a new proxy require function
     currentModule.require = function requireProxy(module) {
         // check whitelist, plugin config, etc.
-        if (_.contains(self.opts.blacklist, module)) {
+        if (_.includes(self.opts.blacklist, module)) {
             throw new Error(i18n.t('errors.apps.unsafeAppRequire.error', {msg: module}));
         }
 

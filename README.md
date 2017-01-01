@@ -8,10 +8,10 @@
 The project is maintained by a non-profit organisation called the **Ghost Foundation**, along with an amazing group of independent [contributors](https://github.com/TryGhost/Ghost/contributors). We're trying to make publishing software that changes the shape of online journalism.
 
 - [Ghost.org](https://ghost.org)
-- [Latest Release](https://ghost.org/download/)
+- [Latest Release](https://ghost.org/developers/)
 - [Support](http://support.ghost.org/)
 - [Theme Docs](http://themes.ghost.org)
-- [Contributing Guide](https://github.com/TryGhost/Ghost/blob/master/CONTRIBUTING.md)
+- [Contributing Guide](https://github.com/TryGhost/Ghost/blob/master/.github/CONTRIBUTING.md)
 - [Feature Requests](http://ideas.ghost.org/)
 - [Dev Blog](http://dev.ghost.org)
 
@@ -20,9 +20,9 @@ The project is maintained by a non-profit organisation called the **Ghost Founda
 
 # Quick Start Install
 
-Make sure you've installed Node.js - We recommend the latest **Node v0.10.x** release. For other versions [click here](http://support.ghost.org/supported-node-versions/). May contain nuts.
+Make sure you've installed Node.js - We recommend the latest **Node v4 LTS** release. For other versions [click here](http://support.ghost.org/supported-node-versions/). May contain nuts.
 
-1. Download the [latest release](https://ghost.org/download/) of Ghost
+1. Download the [latest release](https://ghost.org/developers/) of Ghost
 1. Unzip in the location you want to install
 1. Fire up a terminal
 1. `npm install --production`
@@ -36,11 +36,11 @@ More [install docs](http://support.ghost.org/installation/) here in case you got
 <a name="getting-started"></a>
 # Developer Install (from git)
 
-Install Node.js.
+Install Node.js. (See [Supported Node.js versions](http://support.ghost.org/supported-node-versions/))
 
 ```bash
-# Node v0.10.x - recommended
-# Node v0.12.x and v4.2.x - supported
+# Node v4.2+ LTS - recommended
+# Node v0.10.x and v0.12.x - supported
 #
 # Choose wisely
 ```
