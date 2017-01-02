@@ -16,8 +16,43 @@
   </div>
 </header>
 
-<nav>
-  <div class="inner">
-    
+<nav class="site-nav">
+  <div class="content">
+    <div class="inner">
+      <div class="column">
+        <h2>About</h2>
+        <p>Pretty Stuff is an online magazine posting hand-selected work from the field of art, design, illustration and photography.</p>
+        <h2>Authors</h2>
+        <ul>
+          {{#get "users"}}
+          {{#foreach users}}
+            <li><a href="/author/{{slug}}">{{name}}</a><span>→</span></li>
+          {{/foreach}}
+          {{/get}}
+        </ul>
+        {{#foreach authors}}
+          {{author}}
+          {{name}}
+        {{/foreach}}
+      </div>
+      <div class="column">
+        <h2>Categories</h2>
+        <ul>
+        {{#get "tags"}}
+        {{#foreach tags}}
+          <li><a href="/tag/{{slug}}">{{name}}</a><span>→</span></li>
+        {{/foreach}}
+        {{/get}}
+        </ul>
+      </div>
+      <div class="column">
+        <h2>Social</h2>
+        <ul>
+          <li><a href="https://twitter.com/prettystuffio">Twitter</a><span>→</span></li>
+          <li><a href="https://www.facebook.com/prettystuffio/">Facebook</a><span>→</span></li>
+          <li><a href="/feed">RSS</a><span>→</span></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </nav>

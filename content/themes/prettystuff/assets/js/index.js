@@ -20,6 +20,8 @@ $( document ).ready(function() {
 
     $('.nav-hamburger').click(function() {
       $('.nav-hamburger').toggleClass('nav-hamburger--open');
+      $('.site-nav').toggleClass('site-nav--open');
+      $('html').toggleClass('hidden');
     });
 
     $(".post-content").fitVids();
