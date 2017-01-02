@@ -63,6 +63,9 @@ h2 {
 	font-size: 42px;
 	font-weight: 600;
 	margin-bottom: 20px;
+	@media (max-width: 800px){
+		font-size: 28px;
+	}
 }
 
 h5 {
@@ -205,7 +208,20 @@ header {
 	margin: 0 auto;
 	padding: 60px 3%;
 	@media (max-width: 800px) {
-		padding: 60px 6%;
+		padding: 30px 6%;
+	}
+
+	.logo {
+		img {
+			width: 45px;
+			@media (max-width: 800px) {
+				width: 40px;
+			}
+		}
+		& a{
+			margin-left: 0;
+			cursor: pointer;
+		}
 	}
 
 	.inner {
@@ -219,16 +235,6 @@ header {
 		font-weight: 300;
 		@media (max-width: 720px) {
 			display: none;
-		}
-	}
-
-	.logo {
-		img {
-			width: 45px;
-		}
-		& a{
-			margin-left: 0;
-			cursor: pointer;
 		}
 	}
 
@@ -304,6 +310,7 @@ header {
 	margin: 160px auto;
 	padding: 0px 3%;
 	@media (max-width: 800px){
+		margin: 100px 0;
 		padding: 0px 6%;
 	}
 }
@@ -315,6 +322,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	@media (max-width: 800px){
+		padding-top: 20px;
 		flex-wrap: wrap;
 	}
 }
@@ -333,8 +341,9 @@ header {
 	}
 	@media (max-width: 800px) {
 		width: 100%;
-		border: 0;
-		padding: 0;
+		border-right: 0;
+		border-bottom: 1px solid #eee;
+		padding: 0 0 40px 0;
 		margin: 0 0 40px 0;
 	}
 }

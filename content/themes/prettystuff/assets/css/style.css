@@ -320,6 +320,11 @@ h2 {
   font-weight: 600;
   margin-bottom: 20px;
 }
+@media (max-width: 800px) {
+  h2 {
+    font-size: 28px;
+  }
+}
 
 h5 {
   margin-bottom: 10px;
@@ -469,8 +474,20 @@ header {
 }
 @media (max-width: 800px) {
   header {
-    padding: 60px 6%;
+    padding: 30px 6%;
   }
+}
+header .logo img {
+  width: 45px;
+}
+@media (max-width: 800px) {
+  header .logo img {
+    width: 40px;
+  }
+}
+header .logo a {
+  margin-left: 0;
+  cursor: pointer;
 }
 header .inner {
   display: -ms-flexbox;
@@ -488,13 +505,6 @@ header .desc {
   header .desc {
     display: none;
   }
-}
-header .logo img {
-  width: 45px;
-}
-header .logo a {
-  margin-left: 0;
-  cursor: pointer;
 }
 
 .nav-hamburger:hover {
@@ -569,6 +579,7 @@ header .logo a {
 }
 @media (max-width: 800px) {
   .site-nav .content {
+    margin: 100px 0;
     padding: 0px 6%;
   }
 }
@@ -584,6 +595,7 @@ header .logo a {
 }
 @media (max-width: 800px) {
   .site-nav .inner {
+    padding-top: 20px;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
@@ -605,8 +617,9 @@ header .logo a {
 @media (max-width: 800px) {
   .site-nav .column {
     width: 100%;
-    border: 0;
-    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid #eee;
+    padding: 0 0 40px 0;
     margin: 0 0 40px 0;
   }
 }
