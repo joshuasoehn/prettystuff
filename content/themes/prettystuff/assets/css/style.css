@@ -669,9 +669,6 @@ header .desc {
     padding: 0 6%;
   }
 }
-.grid:nth-of-type(2n) {
-  margin-right: 0;
-}
 
 .grid .article {
   width: 30%;
