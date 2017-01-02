@@ -8,7 +8,7 @@ $( document ).ready(function() {
 
     $('a[data-rel^=lightcase]').lightcase({transition : 'fade'});
 
-    var url = window.location.pathname, 
+    var url = window.location.pathname,
         urlRegExp = new RegExp(url == '/' ? window.location.origin + '/?$' : url.replace(/\/$/,''));
         // now grab every link from the navigation
         $('.menu a').each(function(){
@@ -18,27 +18,16 @@ $( document ).ready(function() {
             }
         });
 
-    $( '.menu-toggle' ).click(function() {
-      $('.site').toggleClass( 'pull-right' );
-      $('.sidebar').toggleClass( 'visible' );
-      $('body').toggleClass( 'hidden' );
+    $('.nav-hamburger').click(function() {
+      $('.nav-hamburger').toggleClass('nav-hamburger--open');
     });
 
-
-      // Disable touch scroll when #site-nav is active
-    $('body').on('touchmove', function(e) { 
-    if($('.site').hasClass('pull-right')) {
-      e.preventDefault();
-    }
-    });
-
-     $(".post-content").fitVids();
+    $(".post-content").fitVids();
 
     $('a.top').click(function(){
-    $('html, body').animate({scrollTop : 0},800);
+      $('html, body').animate({scrollTop : 0},800);
       return false;
     });
 
 
 });
-

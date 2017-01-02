@@ -1,14 +1,6 @@
 @import 'lightcase';
-
-
 $headlines: "europa", sans-serif;
 $skolar: "skolar", serif;
-
-@mixin vertical-align {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}
 
 * {
 	margin: 0;
@@ -22,10 +14,7 @@ $skolar: "skolar", serif;
 html {
 	-webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-   -moz-font-feature-settings: "liga=1, dlig=1";
-  -ms-font-feature-settings: "liga", "dlig";
   -webkit-font-feature-settings: "liga", "dlig";
-  -o-font-feature-settings: "liga", "dlig";
   font-feature-settings: "liga", "dlig";
 }
 
@@ -116,7 +105,6 @@ ul {
 	overflow: hidden !important;
 }
 
-
 .button {
 	background: #000;
 	padding: 12px 20px;
@@ -196,15 +184,14 @@ header {
 	max-width: 1240px;
 	margin: 0 auto;
 	padding: 60px 3%;
-	font-family: $headlines;
-	font-weight: 600;
-	overflow: hidden;
 	@media (max-width: 800px) {
 		padding: 60px 6%;
 	}
 
 	.inner {
-		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.desc {
@@ -216,15 +203,8 @@ header {
 	}
 
 	.logo {
-		width: 140px;
 		img {
 			width: 45px;
-		}
-		@media (max-width: 800px) {
-			width: 40px;
-			img {
-				width: 40px;
-			}
 		}
 		& a{
 			margin-left: 0;
@@ -232,30 +212,39 @@ header {
 		}
 	}
 
-	.menu {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		a {
-			color: #666;
-			font-weight: 600;
-			font-size: 16px;
-			@media (max-width: 600px) {
-				font-size: 14px;
-			}
-			&:hover, &.active {
-				color: #000;
-			}
-		}
-
-	.col-menu a {
-		margin-left: 15px;
-	}
-
-	}
-
 }
 
+.nav-hamburger:hover {
+	cursor: pointer;
+	.nav-hamburger-svg-1 {
+		transform: translateY(2px);
+	}
+	.nav-hamburger-svg-3 {
+		transform: translateY(-2px);
+	}
+}
+
+.nav-hamburger {
+	-webkit-user-select: none; 
+	user-select: none;
+}
+
+.nav-hamburger--open {
+	.nav-hamburger-svg-1 {
+		transform: translate(1px, 8px) rotate(-45deg) !important;
+	}
+	.nav-hamburger-svg-2 {
+		opacity: 0;
+	}
+	.nav-hamburger-svg-3 {
+		transform: translate(1px, -8px) rotate(45deg) !important;
+	}
+}
+
+.nav--hamburger-svg * {
+	transform-origin: 50% 50%;
+	transition: all .2s cubic-bezier(0.5, 0.1, 0, 1.2);
+}
 
 .site {
 	margin: 0 auto;

@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     watch = require('gulp-watch'),
     uglify = require('gulp-uglifyjs'),
@@ -10,25 +9,13 @@ var gulp = require('gulp'),
     reload = browserSync.reload,
     notify = require('gulp-notify');
 
-
-gulp.task('browser-sync', function() {
-    browserSync({
-        proxy: "localhost:2368"
-    });
-});
-
-
 gulp.task('sass', function() {
     return sass('assets/scss/style.scss', { style: 'expanded' })
     .on('error', notify.onError())
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9'))
     .pipe(gulp.dest('assets/css'))
     .pipe(reload({stream: true}))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(minifycss())
-    .pipe(gulp.dest('assets/css'));
 });
-
 
 gulp.task('js', function() {
   return gulp.src('assets/js/*.js')
@@ -39,8 +26,7 @@ gulp.task('js', function() {
     .pipe(reload({stream:true}));
 });
 
-
-gulp.task('watch', ['sass', 'js', 'browser-sync'], function() {
+gulp.task('default', ['sass', 'js'], function() {
     gulp.watch('assets/**/*.scss', ['sass']);
     gulp.watch('assets/**/*.js', ['js']);
 });
